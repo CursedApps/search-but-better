@@ -9,7 +9,8 @@
           "matches": [
             "<all_urls>"
           ],
-          "js": ["background.js"]
+          "js": ["background.js"],
+          "css": ["style.css"]
         }
       ],
 
