@@ -2,11 +2,17 @@
     "name": "Getting Started Example",
     "version": "1.0",
     "description": "Build an Extension!",
-    "permissions": ["activeTab", "declarativeContent", "storage"],
-    "background": {
-      "scripts": ["background.js"],
-      "persistent": false
-    },
+    "permissions": ["activeTab", "declarativeContent"],
+
+    "content_scripts": [
+        {
+          "matches": [
+            "<all_urls>"
+          ],
+          "js": ["background.js"]
+        }
+      ],
+
     "options_page": "options.html",
     "page_action": {
       "default_popup": "popup.html",
