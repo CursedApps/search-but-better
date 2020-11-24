@@ -10,10 +10,14 @@
             "<all_urls>"
           ],
           "js": ["background.js"],
-          "css": ["style.css"]
+          "css": [
+            "css/fontawesome.min.css",
+            "css/fontawesome.css",
+            "css/regular.min.css",
+            "css/style.css"
+          ]
         }
       ],
-
     "options_page": "options.html",
     "page_action": {
       "default_popup": "popup.html",
@@ -30,5 +34,10 @@
       "48": "images/get_started48.png",
       "128": "images/get_started128.png"
     },
+    "web_accessible_resources": [
+      "css/fontawesome.min.css",
+      "css/regular.min.css",
+      "webfonts/fa-regular-400.woff2"
+    ],
     "manifest_version": 2
   }
