@@ -33,24 +33,25 @@ createPopup = function() {
     input = document.createElement("input");
     input.type = "text";
     input.id = "bs-input-field"
+    input.className = "textinput"
     popup.appendChild(input);
     
     // inline buttons
-    createButton(popup, "inline", "Match Case (alt+c)", "caseSensitiveBtn", "fas fa-bold")
-    createButton(popup, "inline", "Match whole word (alt+w)", "matchWordBtn", "fas fa-bold")
-    createButton(popup, "inline", "Use regular expression (alt+r)", "useRegexBtn", "fas fa-italic")
+    createButton(popup, "inline", "Match Case (alt+c)", "caseSensitiveBtn", "https://www.flaticon.com/svg/static/icons/svg/68/68216.svg", false)
+    createButton(popup, "inline", "Match whole word (alt+w)", "matchWordBtn", "https://www.flaticon.com/svg/static/icons/svg/2658/2658259.svg", false)
+    createButton(popup, "inline", "Use regular expression (alt+r)", "useRegexBtn", "https://www.flaticon.com/svg/static/icons/svg/37/37490.svg", true)
     
     // label
     label = document.createElement("label")
-    label.text = "No Results"
+    label.innerHTML = "No Results"
     label.id = "nbResults"
     popup.appendChild(label)
     
     // outside buttons
-    createButton(popup, "", "Previous match (shit+enter)", "previousMatchBtn", "fas fa-arrow-up")
-    createButton(popup, "", "Next match (enter)", "matchWordBtn", "fas fa-arrow-down")
-    createButton(popup, "", "Find in selection (alt+L)", "useRegexBtn", "fas fa-align-left")
-    createButton(popup, "", "Close (escape)", "useRegexBtn", "fas fa-camera")
+    createButton(popup, "outline", "Previous match (shit+enter)", "previousMatchBtn", "https://www.flaticon.com/svg/static/icons/svg/271/271237.svg")
+    createButton(popup, "outline", "Next match (enter)", "matchWordBtn", "https://www.flaticon.com/svg/static/icons/svg/271/271208.svg")
+    createButton(popup, "outline", "Find in selection (alt+L)", "findInSelectionBtn", "https://www.flaticon.com/svg/static/icons/svg/1437/1437803.svg")
+    createButton(popup, "outline", "Close (escape)", "closeBtn", "https://www.flaticon.com/svg/static/icons/svg/271/271203.svg")
     
     document.body.appendChild(popup);
   }
@@ -59,15 +60,18 @@ createPopup = function() {
 }
 
 
-createButton = function(parent, className, title, id, iconPath) {
-  newButton = document.createElement("button")
-  newButton.className=className
-  newButton.title = title
-  newButton.id =id
+createButton = function(parent, className, title, id, iconSrc, last) {
+  newButton = document.createElement("input");
+  newButton.className=className;
+  newButton.title = title;
+  newButton.type = "image";
+  newButton.id = id;
+  newButton.src = iconSrc;
+  newButton.height = '21';
 
-  icon = document.createElement("i")
-  icon.className=iconPath
-  newButton.appendChild(icon)
+  if (last) {
+    newButton.style.paddingRight = '5px !important';
+  }
 
   parent.appendChild(newButton)
 }

@@ -1,7 +1,7 @@
 {
     "name": "Getting Started Example",
     "version": "1.0",
-    "description": "Build an Extension!",
+    "description": "search BUT BETTER",
     "permissions": ["activeTab", "declarativeContent"],
 
     "content_scripts": [
@@ -11,9 +11,6 @@
           ],
           "js": ["background.js"],
           "css": [
-            "css/fontawesome.min.css",
-            "css/fontawesome.css",
-            "css/regular.min.css",
             "css/style.css"
           ]
         }
@@ -34,10 +31,5 @@
       "48": "images/get_started48.png",
       "128": "images/get_started128.png"
     },
-    "web_accessible_resources": [
-      "css/fontawesome.min.css",
-      "css/regular.min.css",
-      "webfonts/fa-regular-400.woff2"
-    ],
     "manifest_version": 2
   }

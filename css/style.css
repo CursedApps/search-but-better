@@ -1,57 +1,104 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 .better-search {
-  font-family: 'Roboto', sans-serif;
-  position: absolute;
-  top: 10px;
-  right: 5%;
-  z-index: 1;
-  display: inline-block;
-  box-shadow: 0 0 10px 2px #ccc;
-  padding:10px;
-  border-radius: 4px;
+  vertical-align: middle !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 14px !important;
+  line-height: 21px !important;
+  position: fixed !important;
+  top: 10px !important;
+  right: 5% !important;
+  z-index: 999999999999999999999999999999999999999999999999999 !important;
+  display: inline-block !important;
+  box-shadow: 0 0 10px 2px #ccc !important;
+  padding: 10px !important;
+  border-radius: 4px !important;
+  background: white !important;
 }
 
-.better-search input {
-  color: grey;
-  background: white;
-  border: none;
-  background:#eee;
-  padding-top:5px;
-  padding-bottom:5px;
-  border-radius: 4px 0px 0px 4px;
+.better-search input.textinput {
+  vertical-align: middle !important;
+  color: grey !important;
+  font-family: 'Roboto', sans-serif !important;
+  background: white !important;
+  border: none !important;
+  background:#eee !important;
+  font-size: 14px !important;
+  padding-top:5px !important;
+  padding-bottom:5px !important;
+  padding-left: 5px !important;
+  line-height: 21px !important;
+  border-radius: 4px 0px 0px 4px !important;
 }
 
 .better-search input:focus {
-  outline:none;
+  vertical-align: middle !important;
+  outline:none !important;
+  font-size: 14px !important;
+  line-height: 21px !important;
+  font-family: 'Roboto', sans-serif !important;
 }
 
-.better-search button {
-  color: grey;
-  background: transparent;
-  border: none;
-  padding-left:1px;
-  padding-right:1px;
+.better-search input {
+  color: grey !important;
+  vertical-align: middle !important;
+  font-family: 'Roboto', sans-serif !important;
+  background: transparent !important;
+  border: none !important;
+  line-height: 21px !important;
+  padding-left:1px !important;
+  padding-right:1px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  font-size: 14px !important;
+  margin: 0px !important;
 }
 
-.better-search button.inline  {
-  background:#eee;
-  margin:-4px;
-  padding: 5px;
-  border-radius: 0px 4px 4px 0px;
+.better-search input.inline  {
+  vertical-align: middle !important;
+  background:#eee !important;
+  font-family: 'Roboto', sans-serif !important;
+  margin:-4px !important;
+  padding-left: 5px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  padding-right: 10px !important;
+
+  border-radius: 0px 4px 4px 0px !important;
+  font-size: 14px !important;
+  line-height: 21px !important;
 }
 
-.better-search button.inline:hover  {
-  color: #007FFF;
+.better-search input.inline:hover  {
+  vertical-align: middle !important;
+  color: #007FFF !important;
+  font-size: 14px !important;
+  font-family: 'Roboto', sans-serif !important;
+  line-height: 21px !important;
 }
 
-.better-search button:focus  {
-  outline:none;
+.better-search input:focus  {
+  vertical-align: middle !important;
+  outline:none !important;
+  font-size: 14px !important;
+  font-family: 'Roboto', sans-serif !important;
+  line-height: 21px !important;
+}
+
+.better-search input.outline  {
+  padding-right: 5px !important;
 }
 
 .better-search label { 
-  padding-right :10px;
-  padding-left: 10px;
-  color: grey;
-  border-right: 1px solid grey;
+  padding-right :10px !important;
+  padding-left: 10px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  margin-right: 10px !important;
+
+  font-size: 14px !important;
+  font-family: 'Roboto', sans-serif !important;
+  color: grey !important;
+  border-right: 1px solid grey !important;
+  line-height: 21px !important;
 }
