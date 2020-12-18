@@ -131,10 +131,15 @@ createButton = function (parent, className, title, id, iconSrc, onClick) {
 }
 
 searchAndHighlight = function(searchTerm) {
+  clearHighlight();
+
+  if (searchTerm == "") {return;}
   // Go trough every text possible and find the searchterm
 
   matches = [];
   elems = [  document.getRootNode() ];
+  searchDir = document.getElementById("better-search");
+  visitedNodes = []
 
   while (elems.length != 0)
   {
@@ -149,83 +154,49 @@ searchAndHighlight = function(searchTerm) {
 
 
     // Process text inside node
-    if (elem.innerHTML != undefined && elem.tagName != "SCRIPT" && elem.tagName != "STYLE" && elem.tagName != "LINK")
+    if (!hasAncestor(elem, searchDir ) && elem.innerHTML != undefined && elem.tagName != "SCRIPT" && elem.tagName != "STYLE" && elem.tagName != "LINK")
     {
       TagOnlyRe = /(<(\w+).*?>.*<\/\2>)/gs; // TODO: improve tag detection
       singleTagRe = /<(\w+).*?>/gs;
       text = elem.innerHTML.replace(TagOnlyRe, '').replace(singleTagRe, '');
       if (text != "") {
         // Check if search term in text
-        if (text.match(searchTerm) != null)
+        matchs = text.match(searchTerm)
+        if (matchs != null)
         {
-          // Do selection
+          visitedNodes.push(elem);
+          elem.innerHTML = elem.innerHTML.replace(searchTerm, "<span class='better-search-highlight'>"+ searchTerm + "</span>");
         }
       }
     }
   }
-
-  // matches = $(`*:contains('${searchTerm}'):last`)
-  // alert(matches)
-  // offset = matches.offset()
-  // top = offset.top
-  // $(window).scrollTop(top);
 }
 
-// Copy pasted
-// searchAndHighlight = function(searchTerm) {
-//   if (searchTerm) {
-//       var selector = currSelection || "#realTimeContents"; // use body as selector if none provided
-//       alert(currSelection + ", " + selector)
-//       var searchTermRegEx = new RegExp(searchTerm, "ig");
-//       var matches = $(selector).text().match(searchTermRegEx);
-//       if (matches != null && matches.length > 0) {
-//           $('.highlighted').removeClass('highlighted'); //Remove old search highlights 
+hasAncestor= function(elem, ancestor) {
+  if (elem == null) return false;
+  parent = elem.parentNode;
+  root = document.getRootNode();
 
-//           //Remove the previous matches
-//           $span = $('#realTimeContents span');
-//           $span.replaceWith($span.html());
+  while(parent != root && parent != null) {
+    if (parent == ancestor) {
+      return true;
+    }
+    else {
+      parent = parent.parentNode;
+    }
+  }
+  
+  return false;
+}
 
-//           if (searchTerm === "&") {
-//               searchTerm = "&amp;";
-//               searchTermRegEx = new RegExp(searchTerm, "ig");
-//           }
-//           $(selector).html($(selector).html().replace(searchTermRegEx, "<span class='match'>" + searchTerm + "</span>"));
-//           $('.match:first').addClass('highlighted');
+clearHighlight = function() {
+  elems = document.getElementsByClassName('better-search-highlight');
+  re = /<span.*>(.+?)<\/span>/gs
 
-//           var i = 0;
-
-//           $('.next_h').off('click').on('click', function () {
-//               i++;
-
-//               if (i >= $('.match').length) i = 0;
-
-//               $('.match').removeClass('highlighted');
-//               $('.match').eq(i).addClass('highlighted');
-//               $('.ui-mobile-viewport').animate({
-//                   scrollTop: $('.match').eq(i).offset().top
-//               }, 300);
-//           });
-//           $('.previous_h').off('click').on('click', function () {
-
-//               i--;
-
-//               if (i < 0) i = $('.match').length - 1;
-
-//               $('.match').removeClass('highlighted');
-//               $('.match').eq(i).addClass('highlighted');
-//               $('.ui-mobile-viewport').animate({
-//                   scrollTop: $('.match').eq(i).offset().top
-//               }, 300);
-//           });
-
-
-
-
-//           if ($('.highlighted:first').length) { //if match found, scroll to where the first one appears
-//               $(window).scrollTop($('.highlighted:first').position().top);
-//           }
-//           return true;
-//       }
-//   }
-//   return false;
-// }
+  for (i = 0; i < elems.length; i++) {
+    elem = elems[i]
+    resultStr = re.exec(elem.outerHTML)[1];
+    console.log(resultStr);
+    elem.outerHTML = elem.outerHTML.replace(re, resultStr);
+  }
+}
