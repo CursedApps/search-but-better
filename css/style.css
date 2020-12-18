@@ -27,6 +27,7 @@
   padding-top:5px !important;
   padding-bottom:5px !important;
   padding-left: 5px !important;
+  padding-right: 10px !important;
   line-height: 21px !important;
   border-radius: 4px 0px 0px 4px !important;
 }
@@ -101,4 +102,9 @@
   color: grey !important;
   border-right: 1px solid grey !important;
   line-height: 21px !important;
+}
+
+.highlighted
+{
+    background-color: #00ffffc2;
 }

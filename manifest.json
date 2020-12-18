@@ -1,15 +1,16 @@
 {
-    "name": "Getting Started Example",
+    "name": "search BUT BETTER",
     "version": "1.0",
     "description": "search BUT BETTER",
     "permissions": ["activeTab", "declarativeContent"],
+    "web_accessible_resources": ["*.png","*.svg"],
 
     "content_scripts": [
         {
           "matches": [
             "<all_urls>"
           ],
-          "js": ["background.js"],
+          "js": ["background.js", "jquery.min.js"],
           "css": [
             "css/style.css"
           ]
