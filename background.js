@@ -131,11 +131,44 @@ createButton = function (parent, className, title, id, iconSrc, onClick) {
 }
 
 searchAndHighlight = function(searchTerm) {
-  matches = $(`*:contains('${searchTerm}'):last`)
-  alert(matches)
-  offset = matches.offset()
-  top = offset.top
-  $(window).scrollTop(top);
+  // Go trough every text possible and find the searchterm
+
+  matches = [];
+  elems = [  document.getRootNode() ];
+
+  while (elems.length != 0)
+  {
+    // Remove current Item and Add children
+    elem = elems[0];
+    elems.shift();
+
+    for (i = 0 ; i < elem.children.length; i++) {
+      child = elem.children[i]
+      elems.push(child)
+    }
+
+
+    // Process text inside node
+    if (elem.innerHTML != undefined && elem.tagName != "SCRIPT" && elem.tagName != "STYLE" && elem.tagName != "LINK")
+    {
+      TagOnlyRe = /(<(\w+).*?>.*<\/\2>)/gs; // TODO: improve tag detection
+      singleTagRe = /<(\w+).*?>/gs;
+      text = elem.innerHTML.replace(TagOnlyRe, '').replace(singleTagRe, '');
+      if (text != "") {
+        // Check if search term in text
+        if (text.match(searchTerm) != null)
+        {
+          // Do selection
+        }
+      }
+    }
+  }
+
+  // matches = $(`*:contains('${searchTerm}'):last`)
+  // alert(matches)
+  // offset = matches.offset()
+  // top = offset.top
+  // $(window).scrollTop(top);
 }
 
 // Copy pasted
