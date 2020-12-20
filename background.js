@@ -137,37 +137,50 @@ searchAndHighlight = function(searchTerm) {
   // Go trough every text possible and find the searchterm
 
   matches = [];
-  elems = [  document.getRootNode() ];
+  elems = [   ...document.getElementsByTagName("BODY") ];
   searchDir = document.getElementById("better-search");
   visitedNodes = []
-
+  
   while (elems.length != 0)
   {
     // Remove current Item and Add children
     elem = elems[0];
     elems.shift();
 
+    matched = false;
+    // Process text inside node
+    if (!hasAncestor(elem, searchDir ) && elem.className != 'better-search-highlight'  && elem.innerHTML != undefined 
+        && elem.tagName != "SCRIPT" && elem.tagName != "STYLE" && elem.tagName != "LINK") {
+      TagOnlyRe = /(.*?)(<(\w+).*?>.*<\/\3>)(.*)/gs; // TODO: improve tag detection
+      singleTagRe = /(.*?)(<(\w+).*?>)(.*)/gs;
+      items = applyFilter([[0,elem.innerHTML]],TagOnlyRe);
+      items = applyFilter(items, singleTagRe);
+
+      result = ""
+      for (i =0; i < items.length; i++) {
+        item = items[i]
+        if (item[0] != 0) {
+          result += item[1];
+        }
+        else {
+          matchs = item[1].match(searchTerm)
+          if (matchs != null && matchs.length != 0) {
+            matched = true;
+            result += item[1].replaceAll(searchTerm, "<span class='better-search-highlight'>"+ searchTerm + "</span>");
+          }
+          else {
+            result += item[1];
+          }
+        }
+      }
+      if (matched) {
+        elem.innerHTML = result
+      }
+    }
+
     for (i = 0 ; i < elem.children.length; i++) {
       child = elem.children[i]
       elems.push(child)
-    }
-
-
-    // Process text inside node
-    if (!hasAncestor(elem, searchDir ) && elem.innerHTML != undefined && elem.tagName != "SCRIPT" && elem.tagName != "STYLE" && elem.tagName != "LINK")
-    {
-      TagOnlyRe = /(<(\w+).*?>.*<\/\2>)/gs; // TODO: improve tag detection
-      singleTagRe = /<(\w+).*?>/gs;
-      text = elem.innerHTML.replace(TagOnlyRe, '').replace(singleTagRe, '');
-      if (text != "") {
-        // Check if search term in text
-        matchs = text.match(searchTerm)
-        if (matchs != null)
-        {
-          visitedNodes.push(elem);
-          elem.innerHTML = elem.innerHTML.replace(searchTerm, "<span class='better-search-highlight'>"+ searchTerm + "</span>");
-        }
-      }
     }
   }
 }
@@ -190,13 +203,41 @@ hasAncestor= function(elem, ancestor) {
 }
 
 clearHighlight = function() {
+  re = /<span class=['"]better-search-highlight['"]>(.+?)<\/span>/gs
+  
   elems = document.getElementsByClassName('better-search-highlight');
-  re = /<span.*>(.+?)<\/span>/gs
-
-  for (i = 0; i < elems.length; i++) {
-    elem = elems[i]
-    resultStr = re.exec(elem.outerHTML)[1];
-    console.log(resultStr);
-    elem.outerHTML = elem.outerHTML.replace(re, resultStr);
+  while(elems.length != 0) {
+    elem = elems[0];
+    result = elem.outerHTML.replaceAll(re, "$1");
+    elem.outerHTML = result;
+    elems = document.getElementsByClassName('better-search-highlight');
   }
+}
+
+applyFilter = function(items, filter) {
+  // go through all items
+  for (i = 0; i < items.length; i++) {
+    item = items[i];
+    // Check changes only for unmatch strings
+    if (item[0] != 0) { continue; }
+
+    matchs = [...item[1].matchAll(filter)]
+    if (matchs == null || matchs.length == 0) {
+      continue;
+    }
+
+    match = matchs[0]
+    // Each match is split into 3 (before (noTag), (match (tag)), after(could be anything))
+    itemsToAdd = []
+    if (match[1] != "" && match[1] != undefined) {
+      itemsToAdd.push([0, match[1]])
+    }
+    itemsToAdd.push([1, match[2]])
+    if (match[4] != "" && match[4] != undefined) {
+      itemsToAdd.push([0,match[4]])    
+    }
+
+    items.splice(i, 1, ...itemsToAdd )
+  }
+  return items;
 }
