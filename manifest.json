@@ -16,7 +16,9 @@
         "<all_urls>"
       ],
       "js": [
-        "js/main.js"
+        "js/main.js",
+        "js/searchLogic.js",
+        "js/UIManager.js"
       ],
       "css": [
         "css/style.css"
