@@ -1,16 +1,17 @@
 searchAndHighlight = function (searchTerm, isMatchCase) {
+  
+  clearHighlight();
+  
+  if (searchTerm == "" || searchTerm == undefined) { return; }
+  // Go trough every text possible and find the searchterm
+  
   // Prepare \ in search term
   searchTerm = searchTerm.replaceAll('\\', '\\\\');
 
-  clearHighlight();
-
-  if (searchTerm == "" || searchTerm == undefined) { return; }
-  // Go trough every text possible and find the searchterm
-
   let elems = [...document.getElementsByTagName("BODY")];
-  const searchDir = document.getElementById("better-search");
-
+  
   while (elems.length != 0) {
+    const searchDir = document.getElementById("better-search");
     // Remove current Item and Add children
     const elem = elems[0];
     elems.shift();
@@ -36,10 +37,11 @@ searchAndHighlight = function (searchTerm, isMatchCase) {
             matches = [...item[1].toLowerCase().matchAll(searchTerm.toLowerCase())]
           }
           else {
-            matches = [...item[1].matchAll(searchTerm.raw())]
+            matches = [...item[1].matchAll(searchTerm)]
           }
           if (matches != null && matches.length != 0) {
             matched = true;
+            console.log(matches)
 
             let k = 0;
             for (let j = 0; j < matches.length; j++) {
