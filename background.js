@@ -1,15 +1,15 @@
-FIND_IN_SELECTION = false
-USE_REGEX = false
-MATCH_WORD = false
-MATCH_CASE = false
-currSelection = null;
+let FIND_IN_SELECTION = false
+let USE_REGEX = false
+let MATCH_WORD = false
+let MATCH_CASE = false
+let currSelection = null;
 
 window.addEventListener("keydown", (event) => {
   if (event.ctrlKey && event.shiftKey && event.key == 'F') {
-    selection = window.getSelection().toString();
-    content = document.documentElement.innerHTML
+    let selection = window.getSelection().toString();
+    let content = document.documentElement.innerHTML
 
-    popup = createPopup()
+    let popup = createPopup()
     if (selection) {
       addSelection(selection)
     }
@@ -37,14 +37,14 @@ window.addEventListener("keydown", (event) => {
 });
 
 document.onselectionchange = () => {
-  selection = document.getSelection()
+  let selection = document.getSelection()
   currSelection = selection
 };
 
 addSelection = function (selection) {
   let popup = document.getElementById("better-search");
   if (popup) {
-    input = document.getElementById("bs-input-field")
+    let input = document.getElementById("bs-input-field")
     input.value = selection;
     currSelection = selection
   }
@@ -85,7 +85,7 @@ createPopup = function () {
     popup.id = "better-search"
 
     // input field
-    input = document.createElement("input");
+    let input = document.createElement("input");
     input.type = "text";
     input.id = "bs-input-field"
     input.className = "textinput"
@@ -98,7 +98,7 @@ createPopup = function () {
     createButton(popup, "inline", "Use regular expression (alt+r)", "useRegexBtn", chrome.extension.getURL('images/icons/useRegex.svg'), toggleUseRegexFlag)
 
     // label
-    label = document.createElement("label")
+    let label = document.createElement("label")
     label.innerHTML = "No Results"
     label.id = "nbResults"
     popup.appendChild(label)
@@ -116,7 +116,7 @@ createPopup = function () {
 }
 
 createButton = function (parent, className, title, id, iconSrc, onClick) {
-  newButton = document.createElement("input");
+  let newButton = document.createElement("input");
   newButton.className = className;
   newButton.title = title;
   newButton.type = "image";
@@ -131,68 +131,112 @@ createButton = function (parent, className, title, id, iconSrc, onClick) {
 }
 
 searchAndHighlight = function(searchTerm) {
-  matches = $(`*:contains('${searchTerm}'):last`)
-  alert(matches)
-  offset = matches.offset()
-  top = offset.top
-  $(window).scrollTop(top);
+  clearHighlight();
+
+  if (searchTerm == "" || searchTerm == undefined) {return;}
+  // Go trough every text possible and find the searchterm
+
+  let matches = [];
+  let elems = [   ...document.getElementsByTagName("BODY") ];
+  const searchDir = document.getElementById("better-search");
+  let visitedNodes = []
+  
+  while (elems.length != 0)
+  {
+    // Remove current Item and Add children
+    const elem = elems[0];
+    elems.shift();
+
+    let matched = false;
+    // Process text inside node
+    if (!hasAncestor(elem, searchDir ) && elem.className != 'better-search-highlight' && elem.innerHTML != undefined 
+        && elem.tagName != "SCRIPT" && elem.tagName != "STYLE" && elem.tagName != "LINK") {
+      tagOnlyRe = /(.*?)(<(\w+).*?>.*<\/\3>)(.*)/gs; // TODO: improve tag detection
+      singleTagRe = /(.*?)(<(\w+).*?>)(.*)/gs;
+      items = applyFilter([[0,elem.innerHTML]],tagOnlyRe);
+      items = applyFilter(items, singleTagRe);
+
+      let result = ""
+      for (i =0; i < items.length; i++) {
+        const item = items[i]
+        if (item[0] != 0) {
+          result += item[1];
+        }
+        else {
+          const matches = item[1].match(searchTerm)
+          if (matches != null && matches.length != 0) {
+            matched = true;
+            result += item[1].replaceAll(searchTerm, "<span class='better-search-highlight'>"+ searchTerm + "</span>");
+          }
+          else {
+            result += item[1];
+          }
+        }
+      }
+      if (matched) {
+        elem.innerHTML = result
+      }
+    }
+
+    for (i = 0 ; i < elem.children.length; i++) {
+      const child = elem.children[i]
+      elems.push(child)
+    }
+  }
 }
 
-// Copy pasted
-// searchAndHighlight = function(searchTerm) {
-//   if (searchTerm) {
-//       var selector = currSelection || "#realTimeContents"; // use body as selector if none provided
-//       alert(currSelection + ", " + selector)
-//       var searchTermRegEx = new RegExp(searchTerm, "ig");
-//       var matches = $(selector).text().match(searchTermRegEx);
-//       if (matches != null && matches.length > 0) {
-//           $('.highlighted').removeClass('highlighted'); //Remove old search highlights 
+hasAncestor= function(elem, ancestor) {
+  if (elem == null) return false;
+  let parent = elem.parentNode;
+  const root = document.getRootNode();
 
-//           //Remove the previous matches
-//           $span = $('#realTimeContents span');
-//           $span.replaceWith($span.html());
+  while(parent != root && parent != null) {
+    if (parent == ancestor) {
+      return true;
+    }
+    else {
+      parent = parent.parentNode;
+    }
+  }
+  
+  return false;
+}
 
-//           if (searchTerm === "&") {
-//               searchTerm = "&amp;";
-//               searchTermRegEx = new RegExp(searchTerm, "ig");
-//           }
-//           $(selector).html($(selector).html().replace(searchTermRegEx, "<span class='match'>" + searchTerm + "</span>"));
-//           $('.match:first').addClass('highlighted');
+clearHighlight = function() {
+  const re = /<span class=['"]better-search-highlight['"]>(.+?)<\/span>/gs
+  
+  let elems = document.getElementsByClassName('better-search-highlight');
+  while(elems.length != 0) {
+    const elem = elems[0];
+    elem.outerHTML = elem.outerHTML.replaceAll(re, "$1");;
+    elems = document.getElementsByClassName('better-search-highlight');
+  }
+}
 
-//           var i = 0;
+applyFilter = function(items, filter) {
+  // go through all items
+  for (i = 0; i < items.length; i++) {
+    const item = items[i];
+    // Check changes only for unmatch strings
+    if (item[0] != 0) { continue; }
 
-//           $('.next_h').off('click').on('click', function () {
-//               i++;
+    let matches = [...item[1].matchAll(filter)]
+    if (matches == null || matches.length == 0) {
+      continue;
+    }
 
-//               if (i >= $('.match').length) i = 0;
+    const match = matches[0]
+    // Each match is split into 3 (before (noTag), (match (tag)), after(could be anything))
+    let itemsToAdd = []
+    if (match[1] != "" && match[1] != undefined) {
+      itemsToAdd.push([0, match[1]])
+    }
+    itemsToAdd.push([1, match[2]])
+    if (match[4] != "" && match[4] != undefined) {
+      itemsToAdd.push([0,match[4]])    
+    }
 
-//               $('.match').removeClass('highlighted');
-//               $('.match').eq(i).addClass('highlighted');
-//               $('.ui-mobile-viewport').animate({
-//                   scrollTop: $('.match').eq(i).offset().top
-//               }, 300);
-//           });
-//           $('.previous_h').off('click').on('click', function () {
-
-//               i--;
-
-//               if (i < 0) i = $('.match').length - 1;
-
-//               $('.match').removeClass('highlighted');
-//               $('.match').eq(i).addClass('highlighted');
-//               $('.ui-mobile-viewport').animate({
-//                   scrollTop: $('.match').eq(i).offset().top
-//               }, 300);
-//           });
-
-
-
-
-//           if ($('.highlighted:first').length) { //if match found, scroll to where the first one appears
-//               $(window).scrollTop($('.highlighted:first').position().top);
-//           }
-//           return true;
-//       }
-//   }
-//   return false;
-// }
+    items.splice(i, 1, ...itemsToAdd )
+  }
+  return items;
+}

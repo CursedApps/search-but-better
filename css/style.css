@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
+.better-search-highlight {
+  background-color: yellow !important;
+}
+
 .better-search {
   vertical-align: middle !important;
   font-family: 'Roboto', sans-serif !important;
