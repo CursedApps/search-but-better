@@ -1,13 +1,11 @@
-searchAndHighlight = function (searchTerm) {
+searchAndHighlight = function (searchTerm, isMatchCase) {
   clearHighlight();
 
   if (searchTerm == "" || searchTerm == undefined) { return; }
   // Go trough every text possible and find the searchterm
 
-  let matches = [];
   let elems = [...document.getElementsByTagName("BODY")];
   const searchDir = document.getElementById("better-search");
-  let visitedNodes = []
 
   while (elems.length != 0) {
     // Remove current Item and Add children
@@ -18,22 +16,38 @@ searchAndHighlight = function (searchTerm) {
     // Process text inside node
     if (!hasAncestor(elem, searchDir) && elem.className != 'better-search-highlight' && elem.innerHTML != undefined
       && elem.tagName != "SCRIPT" && elem.tagName != "STYLE" && elem.tagName != "LINK") {
-      tagOnlyRe = /(.*?)(<(\w+).*?>.*<\/\3>)(.*)/gs; // TODO: improve tag detection
+      tagOnlyRe = /(.*?)(<(\w+).*?>.*<\/\3>)(.*)/gs;
       singleTagRe = /(.*?)(<(\w+).*?>)(.*)/gs;
       items = applyFilter([[0, elem.innerHTML]], tagOnlyRe);
       items = applyFilter(items, singleTagRe);
 
       let result = ""
-      for (i = 0; i < items.length; i++) {
+      for (let i = 0; i < items.length; i++) {
         const item = items[i]
         if (item[0] != 0) {
           result += item[1];
         }
         else {
-          const matches = item[1].match(searchTerm)
+          let matches = null;
+          if (!isMatchCase) {
+            matches = [...item[1].toLowerCase().matchAll(searchTerm.toLowerCase())]
+          }
+          else {
+            matches = [...item[1].matchAll(searchTerm)]
+          }
           if (matches != null && matches.length != 0) {
             matched = true;
-            result += item[1].replaceAll(searchTerm, "<span class='better-search-highlight'>" + searchTerm + "</span>");
+
+            let k = 0;
+            for (let j = 0; j < matches.length; j++) {
+              match = matches[j];
+              result += item[1].substring(k, match.index);
+              const actualTerm = item[1].substr(match.index, searchTerm.length);
+              result += "<span class='better-search-highlight'>" + actualTerm + "</span>";
+              k = match.index + searchTerm.length;
+            }
+
+            result += item[1].substring(k, item[1].length);
           }
           else {
             result += item[1];
@@ -45,7 +59,7 @@ searchAndHighlight = function (searchTerm) {
       }
     }
 
-    for (i = 0; i < elem.children.length; i++) {
+    for (let i = 0; i < elem.children.length; i++) {
       const child = elem.children[i]
       elems.push(child)
     }
@@ -82,7 +96,7 @@ clearHighlight = function () {
 
 applyFilter = function (items, filter) {
   // go through all items
-  for (i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i++) {
     const item = items[i];
     // Check changes only for unmatch strings
     if (item[0] != 0) { continue; }

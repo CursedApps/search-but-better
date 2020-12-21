@@ -14,7 +14,7 @@ createPopup = function () {
         input.type = "text";
         input.id = "bs-input-field"
         input.className = "textinput"
-        input.oninput = function () { searchAndHighlight(input.value) }
+        input.oninput = function () { searchAndHighlight(input.value, MATCH_CASE) }
         popup.appendChild(input);
 
         // inline buttons
