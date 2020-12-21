@@ -93,9 +93,9 @@ createPopup = function () {
     popup.appendChild(input);
 
     // inline buttons
-    createButton(popup, "inline", "Match Case (alt+c)", "caseSensitiveBtn", chrome.extension.getURL('images/icons/matchCase.svg'), toggleMatchCaseFlag)
-    createButton(popup, "inline", "Match whole word (alt+w)", "matchWordBtn", chrome.extension.getURL('images/icons/matchWord.svg'), toggleMatchWordFlag)
-    createButton(popup, "inline", "Use regular expression (alt+r)", "useRegexBtn", chrome.extension.getURL('images/icons/useRegex.svg'), toggleUseRegexFlag)
+    createButton(popup, "inline", "Match Case (alt+c)", "caseSensitiveBtn", chrome.extension.getURL('assets/icons/matchCase.svg'), toggleMatchCaseFlag)
+    createButton(popup, "inline", "Match whole word (alt+w)", "matchWordBtn", chrome.extension.getURL('assets/icons/matchWord.svg'), toggleMatchWordFlag)
+    createButton(popup, "inline", "Use regular expression (alt+r)", "useRegexBtn", chrome.extension.getURL('assets/icons/useRegex.svg'), toggleUseRegexFlag)
 
     // label
     let label = document.createElement("label")
@@ -104,10 +104,10 @@ createPopup = function () {
     popup.appendChild(label)
 
     // outside buttons
-    createButton(popup, "outline", "Previous match (shit+enter)", "previousMatchBtn", chrome.extension.getURL('images/icons/upArrow.svg'), "goToPreviousMatch()")
-    createButton(popup, "outline", "Next match (enter)", "nextMatchBtn", chrome.extension.getURL('images/icons/downArrow.svg'), "goToNextMatch()")
-    createButton(popup, "outline", "Find in selection (alt+L)", "findInSelectionBtn", chrome.extension.getURL('images/icons/findInSelection.svg'), toggleFindInSelectionFlag)
-    createButton(popup, "outline", "Close (escape)", "closeBtn", chrome.extension.getURL('images/icons/close.svg'), closeSearchPopup)
+    createButton(popup, "outline", "Previous match (shit+enter)", "previousMatchBtn", chrome.extension.getURL('assets/icons/upArrow.svg'), "goToPreviousMatch()")
+    createButton(popup, "outline", "Next match (enter)", "nextMatchBtn", chrome.extension.getURL('assets/icons/downArrow.svg'), "goToNextMatch()")
+    createButton(popup, "outline", "Find in selection (alt+L)", "findInSelectionBtn", chrome.extension.getURL('assets/icons/findInSelection.svg'), toggleFindInSelectionFlag)
+    createButton(popup, "outline", "Close (escape)", "closeBtn", chrome.extension.getURL('assets/icons/close.svg'), closeSearchPopup)
 
     document.body.appendChild(popup);
   }
