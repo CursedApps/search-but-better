@@ -1,15 +1,15 @@
-FIND_IN_SELECTION = false
-USE_REGEX = false
-MATCH_WORD = false
-MATCH_CASE = false
-currSelection = null;
+let FIND_IN_SELECTION = false
+let USE_REGEX = false
+let MATCH_WORD = false
+let MATCH_CASE = false
+let currSelection = null;
 
 window.addEventListener("keydown", (event) => {
   if (event.ctrlKey && event.shiftKey && event.key == 'F') {
-    selection = window.getSelection().toString();
-    content = document.documentElement.innerHTML
+    let selection = window.getSelection().toString();
+    let content = document.documentElement.innerHTML
 
-    popup = createPopup()
+    let popup = createPopup()
     if (selection) {
       addSelection(selection)
     }
@@ -37,14 +37,14 @@ window.addEventListener("keydown", (event) => {
 });
 
 document.onselectionchange = () => {
-  selection = document.getSelection()
+  let selection = document.getSelection()
   currSelection = selection
 };
 
 addSelection = function (selection) {
   let popup = document.getElementById("better-search");
   if (popup) {
-    input = document.getElementById("bs-input-field")
+    let input = document.getElementById("bs-input-field")
     input.value = selection;
     currSelection = selection
   }
@@ -85,7 +85,7 @@ createPopup = function () {
     popup.id = "better-search"
 
     // input field
-    input = document.createElement("input");
+    let input = document.createElement("input");
     input.type = "text";
     input.id = "bs-input-field"
     input.className = "textinput"
@@ -98,7 +98,7 @@ createPopup = function () {
     createButton(popup, "inline", "Use regular expression (alt+r)", "useRegexBtn", chrome.extension.getURL('images/icons/useRegex.svg'), toggleUseRegexFlag)
 
     // label
-    label = document.createElement("label")
+    let label = document.createElement("label")
     label.innerHTML = "No Results"
     label.id = "nbResults"
     popup.appendChild(label)
@@ -116,7 +116,7 @@ createPopup = function () {
 }
 
 createButton = function (parent, className, title, id, iconSrc, onClick) {
-  newButton = document.createElement("input");
+  let newButton = document.createElement("input");
   newButton.className = className;
   newButton.title = title;
   newButton.type = "image";
@@ -133,38 +133,38 @@ createButton = function (parent, className, title, id, iconSrc, onClick) {
 searchAndHighlight = function(searchTerm) {
   clearHighlight();
 
-  if (searchTerm == "") {return;}
+  if (searchTerm == "" || searchTerm == undefined) {return;}
   // Go trough every text possible and find the searchterm
 
-  matches = [];
-  elems = [   ...document.getElementsByTagName("BODY") ];
-  searchDir = document.getElementById("better-search");
-  visitedNodes = []
+  let matches = [];
+  let elems = [   ...document.getElementsByTagName("BODY") ];
+  const searchDir = document.getElementById("better-search");
+  let visitedNodes = []
   
   while (elems.length != 0)
   {
     // Remove current Item and Add children
-    elem = elems[0];
+    const elem = elems[0];
     elems.shift();
 
-    matched = false;
+    let matched = false;
     // Process text inside node
-    if (!hasAncestor(elem, searchDir ) && elem.className != 'better-search-highlight'  && elem.innerHTML != undefined 
+    if (!hasAncestor(elem, searchDir ) && elem.className != 'better-search-highlight' && elem.innerHTML != undefined 
         && elem.tagName != "SCRIPT" && elem.tagName != "STYLE" && elem.tagName != "LINK") {
-      TagOnlyRe = /(.*?)(<(\w+).*?>.*<\/\3>)(.*)/gs; // TODO: improve tag detection
+      tagOnlyRe = /(.*?)(<(\w+).*?>.*<\/\3>)(.*)/gs; // TODO: improve tag detection
       singleTagRe = /(.*?)(<(\w+).*?>)(.*)/gs;
-      items = applyFilter([[0,elem.innerHTML]],TagOnlyRe);
+      items = applyFilter([[0,elem.innerHTML]],tagOnlyRe);
       items = applyFilter(items, singleTagRe);
 
-      result = ""
+      let result = ""
       for (i =0; i < items.length; i++) {
-        item = items[i]
+        const item = items[i]
         if (item[0] != 0) {
           result += item[1];
         }
         else {
-          matchs = item[1].match(searchTerm)
-          if (matchs != null && matchs.length != 0) {
+          const matches = item[1].match(searchTerm)
+          if (matches != null && matches.length != 0) {
             matched = true;
             result += item[1].replaceAll(searchTerm, "<span class='better-search-highlight'>"+ searchTerm + "</span>");
           }
@@ -179,7 +179,7 @@ searchAndHighlight = function(searchTerm) {
     }
 
     for (i = 0 ; i < elem.children.length; i++) {
-      child = elem.children[i]
+      const child = elem.children[i]
       elems.push(child)
     }
   }
@@ -187,8 +187,8 @@ searchAndHighlight = function(searchTerm) {
 
 hasAncestor= function(elem, ancestor) {
   if (elem == null) return false;
-  parent = elem.parentNode;
-  root = document.getRootNode();
+  let parent = elem.parentNode;
+  const root = document.getRootNode();
 
   while(parent != root && parent != null) {
     if (parent == ancestor) {
@@ -203,13 +203,12 @@ hasAncestor= function(elem, ancestor) {
 }
 
 clearHighlight = function() {
-  re = /<span class=['"]better-search-highlight['"]>(.+?)<\/span>/gs
+  const re = /<span class=['"]better-search-highlight['"]>(.+?)<\/span>/gs
   
-  elems = document.getElementsByClassName('better-search-highlight');
+  let elems = document.getElementsByClassName('better-search-highlight');
   while(elems.length != 0) {
-    elem = elems[0];
-    result = elem.outerHTML.replaceAll(re, "$1");
-    elem.outerHTML = result;
+    const elem = elems[0];
+    elem.outerHTML = elem.outerHTML.replaceAll(re, "$1");;
     elems = document.getElementsByClassName('better-search-highlight');
   }
 }
@@ -217,18 +216,18 @@ clearHighlight = function() {
 applyFilter = function(items, filter) {
   // go through all items
   for (i = 0; i < items.length; i++) {
-    item = items[i];
+    const item = items[i];
     // Check changes only for unmatch strings
     if (item[0] != 0) { continue; }
 
-    matchs = [...item[1].matchAll(filter)]
-    if (matchs == null || matchs.length == 0) {
+    let matches = [...item[1].matchAll(filter)]
+    if (matches == null || matches.length == 0) {
       continue;
     }
 
-    match = matchs[0]
+    const match = matches[0]
     // Each match is split into 3 (before (noTag), (match (tag)), after(could be anything))
-    itemsToAdd = []
+    let itemsToAdd = []
     if (match[1] != "" && match[1] != undefined) {
       itemsToAdd.push([0, match[1]])
     }
