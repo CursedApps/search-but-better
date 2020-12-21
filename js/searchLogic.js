@@ -1,4 +1,7 @@
 searchAndHighlight = function (searchTerm, isMatchCase) {
+  // Prepare \ in search term
+  searchTerm = searchTerm.replaceAll('\\', '\\\\');
+
   clearHighlight();
 
   if (searchTerm == "" || searchTerm == undefined) { return; }
@@ -33,7 +36,7 @@ searchAndHighlight = function (searchTerm, isMatchCase) {
             matches = [...item[1].toLowerCase().matchAll(searchTerm.toLowerCase())]
           }
           else {
-            matches = [...item[1].matchAll(searchTerm)]
+            matches = [...item[1].matchAll(searchTerm.raw())]
           }
           if (matches != null && matches.length != 0) {
             matched = true;
@@ -42,9 +45,9 @@ searchAndHighlight = function (searchTerm, isMatchCase) {
             for (let j = 0; j < matches.length; j++) {
               match = matches[j];
               result += item[1].substring(k, match.index);
-              const actualTerm = item[1].substr(match.index, searchTerm.length);
-              result += "<span class='better-search-highlight'>" + actualTerm + "</span>";
               k = match.index + searchTerm.length;
+              const actualTerm = item[1].substring(match.index, k);
+              result += "<span class='better-search-highlight'>" + actualTerm + "</span>";
             }
 
             result += item[1].substring(k, item[1].length);
