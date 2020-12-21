@@ -41,7 +41,6 @@ searchAndHighlight = function (searchTerm, isMatchCase) {
           }
           if (matches != null && matches.length != 0) {
             matched = true;
-            console.log(matches)
 
             let k = 0;
             for (let j = 0; j < matches.length; j++) {
