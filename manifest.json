@@ -1,36 +1,44 @@
 {
-    "name": "search BUT BETTER",
-    "version": "1.0",
-    "description": "search BUT BETTER",
-    "permissions": ["activeTab", "declarativeContent"],
-    "web_accessible_resources": ["*.png","*.svg"],
-
-    "content_scripts": [
-        {
-          "matches": [
-            "<all_urls>"
-          ],
-          "js": ["background.js", "jquery.min.js"],
-          "css": [
-            "css/style.css"
-          ]
-        }
+  "name": "search BUT BETTER",
+  "version": "1.0",
+  "description": "search BUT BETTER",
+  "permissions": [
+    "activeTab",
+    "declarativeContent"
+  ],
+  "web_accessible_resources": [
+    "*.png",
+    "*.svg"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
       ],
-    "options_page": "options.html",
-    "page_action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "images/get_started16.png",
-        "32": "images/get_started32.png",
-        "48": "images/get_started48.png",
-        "128": "images/get_started128.png"
-      }
-    },
-    "icons": {
-      "16": "images/get_started16.png",
-      "32": "images/get_started32.png",
-      "48": "images/get_started48.png",
-      "128": "images/get_started128.png"
-    },
-    "manifest_version": 2
-  }
+      "js": [
+        "js/main.js",
+        "js/searchLogic.js",
+        "js/UIManager.js"
+      ],
+      "css": [
+        "css/style.css"
+      ]
+    }
+  ],
+  "options_page": "html/options.html",
+  "page_action": {
+    "default_icon": {
+      "16": "assets/images/get_started16.png",
+      "32": "assets/images/get_started32.png",
+      "48": "assets/images/get_started48.png",
+      "128": "assets/images/get_started128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/images/get_started16.png",
+    "32": "assets/images/get_started32.png",
+    "48": "assets/images/get_started48.png",
+    "128": "assets/images/get_started128.png"
+  },
+  "manifest_version": 2
+}
