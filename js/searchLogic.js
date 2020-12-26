@@ -4,16 +4,13 @@ searchAndHighlight = function (searchTerm, isMatchCase, isMatchWord, isRegex) {
   
   if (searchTerm == "" || searchTerm == undefined) { return; }
   // Go trough every text possible and find the searchterm
-  
-  // Prepare \ in search term
-  searchTerm = searchTerm.replaceAll('\\', '\\\\');
 
   if (isRegex) {
     // if last value is \ remove it
     if (searchTerm[searchTerm.length-1] == '\\') {
       searchTerm = searchTerm.substring(0, searchTerm.length - 2);
     }
-  } else {
+  } else { 
     searchTerm = cleanRegex(searchTerm);
   }
 
@@ -54,6 +51,23 @@ searchAndHighlight = function (searchTerm, isMatchCase, isMatchWord, isRegex) {
             let k = 0;
             for (let j = 0; j < matches.length; j++) {
               match = matches[j];
+              if (isMatchWord) {
+                idxs = [k + match.index-1, match.index + searchTerm.length];
+                let continueOnMatch = false;
+
+                for (let idxI = 0; idxI < idxs.length; idxI++) {
+                  idx = idxs[idxI];
+                  if (!(idx < 0 || idx >= item[1].length || (item[1][idx].match(/[\s.,-]/) != null &&  item[1][idx].match(/[\s.,-]/).length != 0) )) {
+                    continueOnMatch = true; 
+                    break;
+                  }
+                }
+
+                if (continueOnMatch) {
+                  continue;
+                }
+
+              }
               result += item[1].substring(k, match.index);
               k = match.index + searchTerm.length;
               const actualTerm = item[1].substring(match.index, k);
