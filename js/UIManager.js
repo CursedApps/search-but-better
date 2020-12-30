@@ -16,7 +16,7 @@ createPopup = function () {
         input.type = "text";
         input.id = "bs-input-field";
         input.className = "textinput";
-        search = function () { searchAndHighlight(input.value, MATCH_CASE) };
+        search = function () { searchAndHighlight(input.value) };
         input.oninput = search;
         popup.appendChild(input);
 
@@ -93,4 +93,5 @@ toggleMatchWordFlag = function () {
 toggleMatchCaseFlag = function () {
     MATCH_CASE = !MATCH_CASE;
     search();
+
 }
