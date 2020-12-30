@@ -16,7 +16,7 @@ createPopup = function () {
         input.type = "text";
         input.id = "bs-input-field";
         input.className = "textinput";
-        search = function () { searchAndHighlight(input.value, MATCH_CASE, MATCH_WORD, USE_REGEX) };
+        search = function () { searchAndHighlight(input.value) };
         input.oninput = search;
         popup.appendChild(input);
 
@@ -78,24 +78,20 @@ closeSearchPopup = function () {
 toggleFindInSelectionFlag = function () {
     FIND_IN_SELECTION = !FIND_IN_SELECTION;
     search();
-    console.log("find in selection ", FIND_IN_SELECTION)
 }
 
 toggleUseRegexFlag = function () {
     USE_REGEX = !USE_REGEX;
     search();
-    console.log("regex ", USE_REGEX)
 }
 
 toggleMatchWordFlag = function () {
     MATCH_WORD = !MATCH_WORD;
     search();
-    console.log("match word ", MATCH_WORD)
 }
 
 toggleMatchCaseFlag = function () {
     MATCH_CASE = !MATCH_CASE;
     search();
-    console.log("match case ", MATCH_CASE)
 
 }

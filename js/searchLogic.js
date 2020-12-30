@@ -1,11 +1,11 @@
-searchAndHighlight = function (searchTerm, isMatchCase, isMatchWord, isRegex) {
+searchAndHighlight = function (searchTerm) {
   
   clearHighlight();
   
   if (searchTerm == "" || searchTerm == undefined) { return; }
   // Go trough every text possible and find the searchterm
 
-  if (isRegex) {
+  if (USE_REGEX) {
     // if last value is \ remove it
     if (searchTerm[searchTerm.length-1] == '\\') {
       searchTerm = searchTerm.substring(0, searchTerm.length - 2);
@@ -39,7 +39,7 @@ searchAndHighlight = function (searchTerm, isMatchCase, isMatchWord, isRegex) {
         }
         else {
           let matches = null;
-          if (!isMatchCase) {
+          if (!MATCH_CASE) {
             matches = [...item[1].toLowerCase().matchAll(searchTerm.toLowerCase())];
           }
           else {
@@ -51,7 +51,7 @@ searchAndHighlight = function (searchTerm, isMatchCase, isMatchWord, isRegex) {
             let k = 0;
             for (let j = 0; j < matches.length; j++) {
               match = matches[j];
-              if (isMatchWord) {
+              if (MATCH_WORD) {
                 idxs = [k + match.index-1, match.index + searchTerm.length];
                 let continueOnMatch = false;
 
