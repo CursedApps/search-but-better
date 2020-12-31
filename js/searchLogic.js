@@ -1,15 +1,21 @@
-searchAndHighlight = function (searchTerm, isMatchCase) {
+searchAndHighlight = function (searchTerm) {
   
   clearHighlight();
   
   if (searchTerm == "" || searchTerm == undefined) { return; }
   // Go trough every text possible and find the searchterm
-  
-  // Prepare \ in search term
-  searchTerm = searchTerm.replaceAll('\\', '\\\\');
+
+  if (USE_REGEX) {
+    // if last value is \ remove it
+    if (searchTerm[searchTerm.length-1] == '\\') {
+      searchTerm = searchTerm.substring(0, searchTerm.length - 2);
+    }
+  } else { 
+    searchTerm = cleanRegex(searchTerm);
+  }
 
   let elems = [...document.getElementsByTagName("BODY")];
-  
+
   while (elems.length != 0) {
     const searchDir = document.getElementById("better-search");
     // Remove current Item and Add children
@@ -25,19 +31,19 @@ searchAndHighlight = function (searchTerm, isMatchCase) {
       items = applyFilter([[0, elem.innerHTML]], tagOnlyRe);
       items = applyFilter(items, singleTagRe);
 
-      let result = ""
+      let result = "";
       for (let i = 0; i < items.length; i++) {
-        const item = items[i]
+        const item = items[i];
         if (item[0] != 0) {
           result += item[1];
         }
         else {
           let matches = null;
-          if (!isMatchCase) {
-            matches = [...item[1].toLowerCase().matchAll(searchTerm.toLowerCase())]
+          if (!MATCH_CASE) {
+            matches = [...item[1].toLowerCase().matchAll(searchTerm.toLowerCase())];
           }
           else {
-            matches = [...item[1].matchAll(searchTerm)]
+            matches = [...item[1].matchAll(searchTerm)];
           }
           if (matches != null && matches.length != 0) {
             matched = true;
@@ -45,6 +51,23 @@ searchAndHighlight = function (searchTerm, isMatchCase) {
             let k = 0;
             for (let j = 0; j < matches.length; j++) {
               match = matches[j];
+              if (MATCH_WORD) {
+                idxs = [k + match.index-1, match.index + searchTerm.length];
+                let continueOnMatch = false;
+
+                for (let idxI = 0; idxI < idxs.length; idxI++) {
+                  idx = idxs[idxI];
+                  if (!(idx < 0 || idx >= item[1].length || (item[1][idx].match(/[\s.,-]/) != null &&  item[1][idx].match(/[\s.,-]/).length != 0) )) {
+                    continueOnMatch = true; 
+                    break;
+                  }
+                }
+
+                if (continueOnMatch) {
+                  continue;
+                }
+
+              }
               result += item[1].substring(k, match.index);
               k = match.index + searchTerm.length;
               const actualTerm = item[1].substring(match.index, k);
@@ -60,13 +83,13 @@ searchAndHighlight = function (searchTerm, isMatchCase) {
       }
 
       if (matched) {
-        elem.innerHTML = result
+        elem.innerHTML = result;
       }
     }
     
     for (let i = 0; i < elem.children.length; i++) {
-      const child = elem.children[i]
-      elems.push(child)
+      const child = elem.children[i];
+      elems.push(child);
     }
   }
 
@@ -93,7 +116,7 @@ hasAncestor = function (elem, ancestor) {
 }
 
 clearHighlight = function () {
-  const re = /<span class=['"]better-search-highlight['"]>(.+?)<\/span>/gs
+  const re = /<span class=['"]better-search-highlight['"]>(.+?)<\/span>/gs ;
 
   let elems = document.getElementsByClassName('better-search-highlight');
   while (elems.length != 0) {
@@ -146,4 +169,8 @@ scrollToMatch = function(idx) {
     highlighted[scrollToIdx].classList.add("better-search-selected")
     highlighted[scrollToIdx].scrollIntoView({behavior: "smooth", block: "center"});
   }
+}
+
+cleanRegex = function(searchTerm) {
+  return searchTerm.replaceAll(/([.])/g, '\\$1');
 }

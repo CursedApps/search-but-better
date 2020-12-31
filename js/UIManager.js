@@ -16,14 +16,17 @@ createPopup = function () {
         input.type = "text";
         input.id = "bs-input-field";
         input.className = "textinput";
-        search = function () { searchAndHighlight(input.value, MATCH_CASE) };
+        search = function () { searchAndHighlight(input.value) };
         input.oninput = search;
         popup.appendChild(input);
 
+        let div = document.createElement("span");
+        div.className="iconContainer"
         // inline buttons
-        createButton(popup, "inline", "Match Case (alt+c)", "caseSensitiveBtn", chrome.extension.getURL('assets/icons/matchCase.svg'), toggleMatchCaseFlag);
-        createButton(popup, "inline", "Match whole word (alt+w)", "matchWordBtn", chrome.extension.getURL('assets/icons/matchWord.svg'), toggleMatchWordFlag);
-        createButton(popup, "inline", "Use regular expression (alt+r)", "useRegexBtn", chrome.extension.getURL('assets/icons/useRegex.svg'), toggleUseRegexFlag);
+        createButton(div, "inline", "Match Case (alt+c)", "caseSensitiveBtn", chrome.extension.getURL('assets/icons/matchCase.svg'), toggleMatchCaseFlag);
+        createButton(div, "inline", "Match whole word (alt+w)", "matchWordBtn", chrome.extension.getURL('assets/icons/matchWord.svg'), toggleMatchWordFlag);
+        createButton(div, "inline", "Use regular expression (alt+r)", "useRegexBtn", chrome.extension.getURL('assets/icons/useRegex.svg'), toggleUseRegexFlag);
+        popup.appendChild(div);
 
         // label
         let label = document.createElement("label");
@@ -38,6 +41,27 @@ createPopup = function () {
         createButton(popup, "outline", "Close (escape)", "closeBtn", chrome.extension.getURL('assets/icons/close.svg'), closeSearchPopup);
 
         document.body.appendChild(popup);
+
+        // apply ui flags
+        if (USE_REGEX) {
+            let button = document.getElementById("useRegexBtn");
+            button.classList.add("activated");
+        }
+
+        if (MATCH_WORD) {
+            let button = document.getElementById("matchWordBtn");
+            button.classList.add("activated");
+        }
+
+        if (MATCH_CASE) {
+            let button = document.getElementById("caseSensitiveBtn");
+            button.classList.add("activated");
+        }
+
+        if (FIND_IN_SELECTION) {
+            let button = document.getElementById("findInSelectionBtn");
+            button.classList.add("activated");
+        }
     }
 
     return popup;
@@ -67,34 +91,27 @@ addSelection = function (selection) {
     }
 }
 
-closeSearchPopup = function () {
-    clearHighlight();
-    let popup = document.getElementById("better-search");
-    if (popup) {
-        popup.parentNode.removeChild(popup);
-    }
-}
-
-toggleFindInSelectionFlag = function () {
-    FIND_IN_SELECTION = !FIND_IN_SELECTION;
-    search();
-}
-
+// functions
+// inline
 toggleUseRegexFlag = function () {
     USE_REGEX = !USE_REGEX;
+    toggle("useRegexBtn", USE_REGEX);
     search();
 }
 
 toggleMatchWordFlag = function () {
     MATCH_WORD = !MATCH_WORD;
+    toggle("matchWordBtn", MATCH_WORD);
     search();
 }
 
 toggleMatchCaseFlag = function () {
     MATCH_CASE = !MATCH_CASE;
+    toggle("caseSensitiveBtn", MATCH_CASE);
     search();
 }
 
+// outline
 scrollToPrevMatch = function() {
     currMatchIdx--
     scrollToMatch(currMatchIdx)
@@ -105,5 +122,28 @@ scrollToNextMatch = function() {
     scrollToMatch(currMatchIdx)
 }
 
-setNumberOfMatchesUI = function(nbOfMatches) {
+
+toggleFindInSelectionFlag = function () {
+    FIND_IN_SELECTION = !FIND_IN_SELECTION;
+    toggle("findInSelectionBtn", FIND_IN_SELECTION);
+    search();
+
+}
+
+closeSearchPopup = function () {
+    clearHighlight();
+    let popup = document.getElementById("better-search");
+    if (popup) {
+        popup.parentNode.removeChild(popup);
+    }
+}
+
+// helpers
+toggle = function(id, condition) {
+    let button = document.getElementById(id);
+    if (condition) {
+        button.classList.add("activated");
+    } else {
+        button.classList.remove("activated");
+    }
 }
