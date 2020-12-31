@@ -135,10 +135,8 @@ scrollToMatch = function(idx) {
 
   // remove previous
   let selected = document.getElementsByClassName('better-search-selected');
-  if(selected.length > 0) {
-    for(let s in selected) {
-      s.classList.remove('better-search-selected')
-    }
+  for(let i=0; i < selected.length; i++) {
+    selected[i].classList.remove('better-search-selected')
   }
 
   let highlighted = document.getElementsByClassName("better-search-highlight");
