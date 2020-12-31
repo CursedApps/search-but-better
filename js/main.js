@@ -3,6 +3,7 @@ let USE_REGEX = false
 let MATCH_WORD = false
 let MATCH_CASE = false
 let currSelection = null;
+let currMatchIdx = 0;
 
 window.addEventListener("keydown", (event) => {
   if (event.ctrlKey && event.shiftKey && event.key == 'F') {
@@ -33,6 +34,14 @@ window.addEventListener("keydown", (event) => {
 
   else if (event.altKey && event.key == 'l') {
     toggleFindInSelectionFlag()
+  }
+
+  else if(event.shiftKey && event.key == 'Enter') {
+    scrollToPrevMatch()
+  }
+
+  else if(event.key == 'Enter') {
+    scrollToNextMatch()
   }
 });
 

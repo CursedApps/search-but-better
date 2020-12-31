@@ -32,8 +32,8 @@ createPopup = function () {
         popup.appendChild(label);
 
         // outside buttons
-        createButton(popup, "outline", "Previous match (shit+enter)", "previousMatchBtn", chrome.extension.getURL('assets/icons/upArrow.svg'), "goToPreviousMatch()");
-        createButton(popup, "outline", "Next match (enter)", "nextMatchBtn", chrome.extension.getURL('assets/icons/downArrow.svg'), "goToNextMatch()");
+        createButton(popup, "outline", "Previous match (shit+enter)", "previousMatchBtn", chrome.extension.getURL('assets/icons/upArrow.svg'), scrollToPrevMatch);
+        createButton(popup, "outline", "Next match (enter)", "nextMatchBtn", chrome.extension.getURL('assets/icons/downArrow.svg'), scrollToNextMatch);
         createButton(popup, "outline", "Find in selection (alt+L)", "findInSelectionBtn", chrome.extension.getURL('assets/icons/findInSelection.svg'), toggleFindInSelectionFlag);
         createButton(popup, "outline", "Close (escape)", "closeBtn", chrome.extension.getURL('assets/icons/close.svg'), closeSearchPopup);
 
@@ -93,4 +93,17 @@ toggleMatchWordFlag = function () {
 toggleMatchCaseFlag = function () {
     MATCH_CASE = !MATCH_CASE;
     search();
+}
+
+scrollToPrevMatch = function() {
+    currMatchIdx--
+    scrollToMatch(currMatchIdx)
+}
+
+scrollToNextMatch = function() {
+    currMatchIdx++
+    scrollToMatch(currMatchIdx)
+}
+
+setNumberOfMatchesUI = function(nbOfMatches) {
 }

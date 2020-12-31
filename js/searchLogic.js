@@ -58,16 +58,21 @@ searchAndHighlight = function (searchTerm, isMatchCase) {
           }
         }
       }
+
       if (matched) {
         elem.innerHTML = result
       }
     }
-
+    
     for (let i = 0; i < elem.children.length; i++) {
       const child = elem.children[i]
       elems.push(child)
     }
   }
+
+  currMatchIdx = 0
+  scrollToMatch(currMatchIdx)
+
 }
 
 hasAncestor = function (elem, ancestor) {
@@ -124,4 +129,23 @@ applyFilter = function (items, filter) {
     items.splice(i, 1, ...itemsToAdd)
   }
   return items;
+}
+
+scrollToMatch = function(idx) {
+
+  // remove previous
+  let selected = document.getElementsByClassName('better-search-selected');
+  if(selected.length > 0) {
+    for(let s in selected) {
+      s.classList.remove('better-search-selected')
+    }
+  }
+
+  let highlighted = document.getElementsByClassName("better-search-highlight");
+
+  if(highlighted.length > 0) {
+    let scrollToIdx = idx % highlighted.length
+    highlighted[scrollToIdx].classList.add("better-search-selected")
+    highlighted[scrollToIdx].scrollIntoView({behavior: "smooth", block: "center"});
+  }
 }
