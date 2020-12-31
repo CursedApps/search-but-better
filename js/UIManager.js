@@ -42,7 +42,7 @@ createPopup = function () {
 
         document.body.appendChild(popup);
 
-        // apply ui flags - QUESTION FOR PR: Do we want to reset on close or keep preferences?
+        // apply ui flags
         if (USE_REGEX) {
             let button = document.getElementById("useRegexBtn");
             button.classList.add("activated");
