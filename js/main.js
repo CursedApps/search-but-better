@@ -3,40 +3,49 @@ let USE_REGEX = false
 let MATCH_WORD = false
 let MATCH_CASE = false
 let currSelection = null;
+let currMatchIdx = 0;
 
 window.addEventListener("keydown", (event) => {
   if (event.ctrlKey && event.shiftKey && event.key == 'F') {
     let selection = window.getSelection().toString();
-    let content = document.documentElement.innerHTML
+    let content = document.documentElement.innerHTML;
 
-    let popup = createPopup()
+    let popup = createPopup();
     if (selection) {
-      addSelection(selection)
+      addSelection(selection);
     }
   }
 
   else if (event.key == 'Escape') {
-    closeSearchPopup()
+    closeSearchPopup();
   }
 
   else if (event.altKey && event.key == 'c') {
-    toggleMatchCaseFlag()
+    toggleMatchCaseFlag();
   }
 
   else if (event.altKey && event.key == 'w') {
-    toggleMatchWordFlag()
+    toggleMatchWordFlag();
   }
 
   else if (event.altKey && event.key == 'r') {
-    toggleUseRegexFlag()
+    toggleUseRegexFlag();
   }
 
   else if (event.altKey && event.key == 'l') {
-    toggleFindInSelectionFlag()
+    toggleFindInSelectionFlag();
+  }
+
+  else if(event.shiftKey && event.key == 'Enter') {
+    scrollToPrevMatch();
+  }
+
+  else if(event.key == 'Enter') {
+    scrollToNextMatch();
   }
 });
 
 document.onselectionchange = () => {
-  let selection = document.getSelection()
-  currSelection = selection
+  let selection = document.getSelection();
+  currSelection = selection;
 };

@@ -4,6 +4,11 @@
   background-color: yellow !important;
 }
 
+.better-search-selected
+{
+  background-color:#ffb54d !important;
+}
+
 .better-search {
   vertical-align: middle !important;
   font-family: 'Roboto', sans-serif !important;
@@ -115,9 +120,4 @@
   color: grey !important;
   border-right: 1px solid grey !important;
   line-height: 21px !important;
-}
-
-.highlighted
-{
-    background-color: #00ffffc2;
 }

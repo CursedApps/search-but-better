@@ -21,7 +21,8 @@ createPopup = function () {
         popup.appendChild(input);
 
         let div = document.createElement("span");
-        div.className="iconContainer"
+        div.className="iconContainer";
+
         // inline buttons
         createButton(div, "inline", "Match Case (alt+c)", "caseSensitiveBtn", chrome.extension.getURL('assets/icons/matchCase.svg'), toggleMatchCaseFlag);
         createButton(div, "inline", "Match whole word (alt+w)", "matchWordBtn", chrome.extension.getURL('assets/icons/matchWord.svg'), toggleMatchWordFlag);
@@ -35,8 +36,8 @@ createPopup = function () {
         popup.appendChild(label);
 
         // outside buttons
-        createButton(popup, "outline", "Previous match (shit+enter)", "previousMatchBtn", chrome.extension.getURL('assets/icons/upArrow.svg'), goToPreviousMatch);
-        createButton(popup, "outline", "Next match (enter)", "nextMatchBtn", chrome.extension.getURL('assets/icons/downArrow.svg'), goToNextMatch);
+        createButton(popup, "outline", "Previous match (shit+enter)", "previousMatchBtn", chrome.extension.getURL('assets/icons/upArrow.svg'), scrollToPrevMatch);
+        createButton(popup, "outline", "Next match (enter)", "nextMatchBtn", chrome.extension.getURL('assets/icons/downArrow.svg'), scrollToNextMatch);
         createButton(popup, "outline", "Find in selection (alt+L)", "findInSelectionBtn", chrome.extension.getURL('assets/icons/findInSelection.svg'), toggleFindInSelectionFlag);
         createButton(popup, "outline", "Close (escape)", "closeBtn", chrome.extension.getURL('assets/icons/close.svg'), closeSearchPopup);
 
@@ -112,13 +113,16 @@ toggleMatchCaseFlag = function () {
 }
 
 // outline
-goToPreviousMatch = function() {
-    // TODO
+scrollToPrevMatch = function() {
+    currMatchIdx--;
+    scrollToMatch(currMatchIdx);
 }
 
-goToNextMatch = function() {
-    // TODO
+scrollToNextMatch = function() {
+    currMatchIdx++;
+    scrollToMatch(currMatchIdx);
 }
+
 
 toggleFindInSelectionFlag = function () {
     FIND_IN_SELECTION = !FIND_IN_SELECTION;
