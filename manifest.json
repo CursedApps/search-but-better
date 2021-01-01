@@ -4,7 +4,8 @@
     "description": "search BUT BETTER",
     "permissions": [
         "activeTab",
-        "declarativeContent"
+        "declarativeContent",
+        "storage"
     ],
     "web_accessible_resources": [
         "*.png",
