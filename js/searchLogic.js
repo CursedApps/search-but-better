@@ -93,8 +93,8 @@ searchAndHighlight = function (searchTerm) {
     }
   }
 
-  currMatchIdx = 0
-  scrollToMatch(currMatchIdx)
+  currMatchIdx = 0;
+  scrollToMatch(currMatchIdx);
 
 }
 
@@ -121,7 +121,7 @@ clearHighlight = function () {
   let elems = document.getElementsByClassName('better-search-highlight');
   while (elems.length != 0) {
     const elem = elems[0];
-    elem.outerHTML = elem.outerHTML.replaceAll(re, "$1");;
+    elem.outerHTML = elem.outerHTML.replaceAll(re, "$1");
     elems = document.getElementsByClassName('better-search-highlight');
   }
 }
@@ -138,18 +138,18 @@ applyFilter = function (items, filter) {
       continue;
     }
 
-    const match = matches[0]
+    const match = matches[0];
     // Each match is split into 3 (before (noTag), (match (tag)), after(could be anything))
     let itemsToAdd = []
     if (match[1] != "" && match[1] != undefined) {
-      itemsToAdd.push([0, match[1]])
+      itemsToAdd.push([0, match[1]]);
     }
     itemsToAdd.push([1, match[2]])
     if (match[4] != "" && match[4] != undefined) {
-      itemsToAdd.push([0, match[4]])
+      itemsToAdd.push([0, match[4]]);
     }
 
-    items.splice(i, 1, ...itemsToAdd)
+    items.splice(i, 1, ...itemsToAdd);
   }
   return items;
 }
@@ -159,14 +159,14 @@ scrollToMatch = function(idx) {
   // remove previous
   let selected = document.getElementsByClassName('better-search-selected');
   for(let i=0; i < selected.length; i++) {
-    selected[i].classList.remove('better-search-selected')
+    selected[i].classList.remove('better-search-selected');
   }
 
   let highlighted = document.getElementsByClassName("better-search-highlight");
 
   if(highlighted.length > 0) {
-    let scrollToIdx = idx % highlighted.length
-    highlighted[scrollToIdx].classList.add("better-search-selected")
+    let scrollToIdx = idx % highlighted.length;
+    highlighted[scrollToIdx].classList.add("better-search-selected");
     highlighted[scrollToIdx].scrollIntoView({behavior: "smooth", block: "center"});
   }
 }

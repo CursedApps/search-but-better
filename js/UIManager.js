@@ -21,7 +21,8 @@ createPopup = function () {
         popup.appendChild(input);
 
         let div = document.createElement("span");
-        div.className="iconContainer"
+        div.className="iconContainer";
+
         // inline buttons
         createButton(div, "inline", "Match Case (alt+c)", "caseSensitiveBtn", chrome.extension.getURL('assets/icons/matchCase.svg'), toggleMatchCaseFlag);
         createButton(div, "inline", "Match whole word (alt+w)", "matchWordBtn", chrome.extension.getURL('assets/icons/matchWord.svg'), toggleMatchWordFlag);
@@ -113,13 +114,13 @@ toggleMatchCaseFlag = function () {
 
 // outline
 scrollToPrevMatch = function() {
-    currMatchIdx--
-    scrollToMatch(currMatchIdx)
+    currMatchIdx--;
+    scrollToMatch(currMatchIdx);
 }
 
 scrollToNextMatch = function() {
-    currMatchIdx++
-    scrollToMatch(currMatchIdx)
+    currMatchIdx++;
+    scrollToMatch(currMatchIdx);
 }
 
 
