@@ -24,7 +24,10 @@
             "css/style.css"
         ]
     }],
-    "options_page": "html/options.html",
+    "options_ui": {
+        "page": "html/options.html",
+        "open_in_tab": false
+    },
     "page_action": {
         "default_icon": {
             "16": "assets/images/get_started16.png",
