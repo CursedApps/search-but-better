@@ -1,10 +1,5 @@
-let page = document.getElementById('buttonDiv');
-const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
-function constructOptions(kButtonColors) {
-  for (let item of kButtonColors) {
-    let button = document.createElement('button');
-    button.style.backgroundColor = item;
-    page.appendChild(button);
-  }
+// set logo image src
+window.onload = function() {
+    let img = document.getElementById('logo')
+    img.src = chrome.extension.getURL('assets/images/get_started32.png')
 }
-constructOptions(kButtonColors);
