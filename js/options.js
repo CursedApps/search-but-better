@@ -12,6 +12,7 @@ restoreOptions = function() {
         useDarkMode: false // default value
     }, function(options) {
         document.getElementById('useDarkMode').checked = options.useDarkMode;
+        options.useDarkMode ? document.body.setAttribute('data-theme', 'dark') : document.body.removeAttribute('data-theme');
     });
 }
 
@@ -20,4 +21,6 @@ updateOptions = function() {
     chrome.storage.local.set({
         useDarkMode: useDarkMode
     }, null);
+
+    useDarkMode ? document.body.setAttribute('data-theme', 'dark') : document.body.removeAttribute('data-theme');
 }

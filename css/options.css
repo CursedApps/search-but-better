@@ -37,11 +37,11 @@
 }
 
 input:checked+.slider {
-    background-color: #2196F3;
+    background-color: var(--bs-color-accent);
 }
 
 input:focus+.slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px var(--bs-color-accent);
 }
 
 input:checked+.slider:before {
@@ -63,8 +63,9 @@ input:checked+.slider:before {
 
 .title {
     line-height: 30px;
-    border-bottom: 2px solid #eee;
-    box-shadow: 0 6px 6px -6px #ccc;
+    border-bottom: 2px solid var(--bs-color-grey);
+    box-shadow: 0 6px 6px -6px var(--bs-color-grey);
+    color: var(--bs-color-text);
 }
 
 .logo {
@@ -79,6 +80,7 @@ input:checked+.slider:before {
     font-family: 'Roboto Mono', monospace;
     font-size: large;
     vertical-align: middle;
+    color: var(--bs-color-text);
 }
 
 .options {
@@ -87,4 +89,9 @@ input:checked+.slider:before {
     margin-left: 10px;
     font-family: 'Roboto Mono', monospace;
     font-size: 13px;
+    color: var(--bs-color-text);
+}
+
+body {
+    background-color: var(--bs-color-bg-options);
 }

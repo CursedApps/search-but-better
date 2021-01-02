@@ -21,12 +21,13 @@
             "js/UIManager.js"
         ],
         "css": [
-            "css/style.css"
+            "css/style.css",
+            "css/colors.css"
         ]
     }],
     "options_ui": {
         "page": "html/options.html",
-        "open_in_tab": false
+        "open_in_tab": true
     },
     "page_action": {
         "default_icon": {
