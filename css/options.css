@@ -64,8 +64,8 @@ input:checked+.slider:before {
 .title {
     line-height: 30px;
     border-bottom: 2px solid var(--bs-color-grey);
-    box-shadow: 0 6px 6px -6px var(--bs-color-grey);
-    color: var(--bs-color-text);
+    box-shadow: 0 6px 6px -6px var(--bs-color-shadow);
+    color: var(--bs-color-text-options);
 }
 
 .logo {
@@ -80,7 +80,7 @@ input:checked+.slider:before {
     font-family: 'Roboto Mono', monospace;
     font-size: large;
     vertical-align: middle;
-    color: var(--bs-color-text);
+    color: var(--bs-color-text-options);
 }
 
 .options {

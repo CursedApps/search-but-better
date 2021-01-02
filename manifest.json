@@ -27,7 +27,7 @@
     }],
     "options_ui": {
         "page": "html/options.html",
-        "open_in_tab": true
+        "open_in_tab": false
     },
     "page_action": {
         "default_icon": {

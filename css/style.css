@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 .better-search-highlight {
-    background-color: yellow !important;
+    background-color: var(--bs-color-highlight) !important;
 }
 
 .better-search-selected {
-    background-color: #ffb54d !important;
+    background-color: var(--bs-color-selected) !important;
 }
 
 .better-search {
@@ -17,23 +17,20 @@
     right: 5% !important;
     z-index: 999999999999999999999999999999999999999999999999999 !important;
     display: inline-block !important;
-    box-shadow: 0 0 10px 2px #ccc !important;
+    box-shadow: 0 0 10px 2px var(--bs-color-shadow) !important;
     padding: 10px !important;
     border-radius: 4px !important;
-    background: white !important;
+    background: var(--bs-color-bg-options) !important;
 }
 
 .better-search input.textinput {
     vertical-align: middle !important;
-    color: grey !important;
+    color: var(--bs-color-text) !important;
     font-family: 'Roboto', sans-serif !important;
-    background: white !important;
     border: none !important;
-    background: #eee !important;
+    background: var(--bs-color-grey) !important;
     font-size: 14px !important;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
-    padding-left: 5px !important;
+    padding: 5px !important;
     padding-right: 10px !important;
     line-height: 21px !important;
     border-radius: 4px 0px 0px 4px !important;
@@ -48,7 +45,6 @@
 }
 
 .better-search input {
-    background: #eee !important;
     color: grey !important;
     vertical-align: middle !important;
     font-family: 'Roboto', sans-serif !important;
@@ -64,7 +60,7 @@
 }
 
 .better-search .iconContainer {
-    background: #eee !important;
+    background: var(--bs-color-grey) !important;
     line-height: 21px !important;
     padding-top: 6px !important;
     padding-bottom: 9px !important;
@@ -74,13 +70,19 @@
     vertical-align: middle !important;
     font-family: 'Roboto', sans-serif !important;
     margin: -4px !important;
-    padding-left: 5px !important;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
+    padding: 5px !important;
     padding-right: 10px !important;
     border-radius: 0px 4px 4px 0px !important;
     font-size: 14px !important;
     line-height: 21px !important;
+}
+
+[data-theme="dark"] input.inline {
+    filter: invert(41%) sepia(22%) saturate(304%) hue-rotate(201deg) brightness(85%) contrast(84%) !important;
+}
+
+[data-theme="dark"] input.outline {
+    filter: invert(25%) sepia(8%) saturate(741%) hue-rotate(202deg) brightness(93%) contrast(93%) !important;
 }
 
 .better-search input.activated {

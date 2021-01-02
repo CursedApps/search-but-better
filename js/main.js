@@ -14,6 +14,15 @@ window.addEventListener("keydown", (event) => {
         if (selection) {
             addSelection(selection);
         }
+
+        chrome.storage.local.get({
+            useDarkMode: false // default value
+        }, function(options) {
+            if (options.useDarkMode) {
+                popup.setAttribute('data-theme', 'dark')
+            }
+        });
+
     } else if (event.key == 'Escape') {
         closeSearchPopup();
     } else if (event.altKey && event.key == 'c') {
