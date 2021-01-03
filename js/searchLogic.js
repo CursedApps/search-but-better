@@ -175,7 +175,6 @@ scrollToMatch = function(idx) {
     let scrollToIdx = idx % highlighted.length;
     highlighted[scrollToIdx].classList.add("better-search-selected");
     highlighted[scrollToIdx].scrollIntoView({behavior: "smooth", block: "center"});
-
     // change UI
     updateResults(scrollToIdx, highlighted.length);
   } else {

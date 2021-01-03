@@ -155,6 +155,10 @@ resetResults = function () {
 }
 
 updateResults = function (resIdx, totalRes) {
+    if (totalRes == 0) {
+        resetResults();
+        return;
+    }
     let resultsLabel = document.getElementById("nbResults");
     resultsLabel.textContent = `${resIdx + 1} / ${totalRes}`;
 }
