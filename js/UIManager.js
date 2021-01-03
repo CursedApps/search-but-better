@@ -1,4 +1,4 @@
-search = function (){}
+search = function () { }
 
 createPopup = function () {
 
@@ -21,7 +21,7 @@ createPopup = function () {
         popup.appendChild(input);
 
         let div = document.createElement("span");
-        div.className="iconContainer";
+        div.className = "iconContainer";
 
         // inline buttons
         createButton(div, "inline", "Match Case (alt+c)", "caseSensitiveBtn", chrome.extension.getURL('assets/icons/matchCase.svg'), toggleMatchCaseFlag);
@@ -113,12 +113,12 @@ toggleMatchCaseFlag = function () {
 }
 
 // outline
-scrollToPrevMatch = function() {
+scrollToPrevMatch = function () {
     currMatchIdx--;
     scrollToMatch(currMatchIdx);
 }
 
-scrollToNextMatch = function() {
+scrollToNextMatch = function () {
     currMatchIdx++;
     scrollToMatch(currMatchIdx);
 }
@@ -140,11 +140,21 @@ closeSearchPopup = function () {
 }
 
 // helpers
-toggle = function(id, condition) {
+toggle = function (id, condition) {
     let button = document.getElementById(id);
     if (condition) {
         button.classList.add("activated");
     } else {
         button.classList.remove("activated");
     }
+}
+
+resetResults = function () {
+    let resultsLabel = document.getElementById("nbResults");
+    resultsLabel.textContent = "No Results";
+}
+
+updateResults = function (resIdx, totalRes) {
+    let resultsLabel = document.getElementById("nbResults");
+    resultsLabel.textContent = `${resIdx + 1} / ${totalRes}`;
 }

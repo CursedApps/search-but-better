@@ -3,8 +3,7 @@ searchAndHighlight = function (searchTerm) {
   clearHighlight();
 
   if (searchTerm == "" || searchTerm == undefined) { 
-    let resultsLabel = document.getElementById("nbResults");
-    resultsLabel.textContent = "No Results";
+    resetResults();
     return; 
   }
   // Go trough every text possible and find the searchterm
@@ -172,16 +171,15 @@ scrollToMatch = function(idx) {
   let highlighted = document.getElementsByClassName("better-search-highlight");
 
   // highlight selected in orange
-  let resultsLabel = document.getElementById("nbResults");
   if(highlighted.length > 0) {
     let scrollToIdx = idx % highlighted.length;
     highlighted[scrollToIdx].classList.add("better-search-selected");
     highlighted[scrollToIdx].scrollIntoView({behavior: "smooth", block: "center"});
 
     // change UI
-    resultsLabel.textContent = `${scrollToIdx + 1} / ${highlighted.length}`;
+    updateResults(scrollToIdx, highlighted.length);
   } else {
-    resultsLabel.textContent = `No Results`;
+    resetResults();
   }
 
 }
