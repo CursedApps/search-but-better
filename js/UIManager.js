@@ -15,18 +15,18 @@ createPopup = function () {
         let input = document.createElement("input");
         input.type = "text";
         input.id = "bs-input-field";
-        input.className = "textinput";
+        input.className = "bs-textinput";
         search = function () { searchAndHighlight(input.value) };
         input.oninput = search;
         popup.appendChild(input);
 
         let div = document.createElement("span");
-        div.className = "iconContainer";
+        div.className = "bs-iconContainer";
 
         // inline buttons
-        createButton(div, "inline", "Match Case (alt+c)", "caseSensitiveBtn", chrome.extension.getURL('assets/icons/matchCase.svg'), toggleMatchCaseFlag);
-        createButton(div, "inline", "Match whole word (alt+w)", "matchWordBtn", chrome.extension.getURL('assets/icons/matchWord.svg'), toggleMatchWordFlag);
-        createButton(div, "inline", "Use regular expression (alt+r)", "useRegexBtn", chrome.extension.getURL('assets/icons/useRegex.svg'), toggleUseRegexFlag);
+        createButton(div, "bs-inline", "Match Case (alt+c)", "caseSensitiveBtn", chrome.extension.getURL('assets/icons/matchCase.svg'), toggleMatchCaseFlag);
+        createButton(div, "bs-inline", "Match whole word (alt+w)", "matchWordBtn", chrome.extension.getURL('assets/icons/matchWord.svg'), toggleMatchWordFlag);
+        createButton(div, "bs-inline", "Use regular expression (alt+r)", "useRegexBtn", chrome.extension.getURL('assets/icons/useRegex.svg'), toggleUseRegexFlag);
         popup.appendChild(div);
 
         // label
@@ -36,10 +36,10 @@ createPopup = function () {
         popup.appendChild(label);
 
         // outside buttons
-        createButton(popup, "outline", "Previous match (shit+enter)", "previousMatchBtn", chrome.extension.getURL('assets/icons/upArrow.svg'), scrollToPrevMatch);
-        createButton(popup, "outline", "Next match (enter)", "nextMatchBtn", chrome.extension.getURL('assets/icons/downArrow.svg'), scrollToNextMatch);
-        createButton(popup, "outline", "Find in selection (alt+L)", "findInSelectionBtn", chrome.extension.getURL('assets/icons/findInSelection.svg'), toggleFindInSelectionFlag);
-        createButton(popup, "outline", "Close (escape)", "closeBtn", chrome.extension.getURL('assets/icons/close.svg'), closeSearchPopup);
+        createButton(popup, "bs-outline", "Previous match (shit+enter)", "previousMatchBtn", chrome.extension.getURL('assets/icons/upArrow.svg'), scrollToPrevMatch);
+        createButton(popup, "bs-outline", "Next match (enter)", "nextMatchBtn", chrome.extension.getURL('assets/icons/downArrow.svg'), scrollToNextMatch);
+        createButton(popup, "bs-outline", "Find in selection (alt+L)", "findInSelectionBtn", chrome.extension.getURL('assets/icons/findInSelection.svg'), toggleFindInSelectionFlag);
+        createButton(popup, "bs-outline", "Close (escape)", "closeBtn", chrome.extension.getURL('assets/icons/close.svg'), closeSearchPopup);
 
         document.body.appendChild(popup);
 
