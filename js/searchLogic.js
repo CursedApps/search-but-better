@@ -116,14 +116,16 @@ hasAncestor = function (elem, ancestor) {
 }
 
 clearHighlight = function () {
-  const re = /<span class=['"]better-search-highlight['"]>(.+?)<\/span>/gs ;
+  const re = /<span class=['"]['"]>(.+?)<\/span>/gs ;
 
   let elems = document.getElementsByClassName('better-search-highlight');
+
   while (elems.length != 0) {
     const elem = elems[0];
+    elem.classList.remove("better-search-highlight", "better-search-selected")
     elem.outerHTML = elem.outerHTML.replaceAll(re, "$1");
-    elems = document.getElementsByClassName('better-search-highlight');
   }
+
 }
 
 applyFilter = function (items, filter) {
