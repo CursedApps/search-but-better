@@ -11,7 +11,7 @@ createPopup = function () {
         popup.id = "better-search";
 
         let comment = document.createComment("Icons by codicon: https://microsoft.github.io/vscode-codicons/dist/codicon.html");
-        popup.body.appendChild(comment);
+        popup.appendChild(comment);
 
         // input field
         let input = document.createElement("input");
