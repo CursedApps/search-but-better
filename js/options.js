@@ -2,7 +2,7 @@
 
 window.onload = function() {
     let img = document.getElementById('logo')
-    img.src = chrome.extension.getURL('assets/images/get_started32.png')
+    img.src = chrome.extension.getURL('assets/images/sbb_32.png')
     document.getElementById('useDarkMode').addEventListener('click', updateOptions);
     restoreOptions()
 }
