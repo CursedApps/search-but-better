@@ -116,7 +116,7 @@ hasAncestor = function (elem, ancestor) {
 }
 
 clearHighlight = function () {
-  const re = /<span>(.+?)<\/span>/gs ;
+  const re = /<span class=['"]['"]>(.+?)<\/span>/gs ;
 
   let elems = document.getElementsByClassName('better-search-highlight');
 
