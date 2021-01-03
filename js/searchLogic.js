@@ -1,7 +1,7 @@
 searchAndHighlight = function (searchTerm) {
-  
+
   clearHighlight();
-  
+
   if (searchTerm == "" || searchTerm == undefined) { return; }
   // Go trough every text possible and find the searchterm
 
@@ -162,13 +162,22 @@ scrollToMatch = function(idx) {
     selected[i].classList.remove('better-search-selected');
   }
 
+  // all highlighted matches
   let highlighted = document.getElementsByClassName("better-search-highlight");
 
+  // highlight selected in orange
+  let resultsLabel = document.getElementById("nbResults");
   if(highlighted.length > 0) {
     let scrollToIdx = idx % highlighted.length;
     highlighted[scrollToIdx].classList.add("better-search-selected");
     highlighted[scrollToIdx].scrollIntoView({behavior: "smooth", block: "center"});
+
+    // change UI
+    resultsLabel.textContent = `${scrollToIdx + 1} / ${highlighted.length}`;
+  } else {
+    resultsLabel.textContent = `No Results`;
   }
+
 }
 
 cleanRegex = function(searchTerm) {
