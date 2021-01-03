@@ -2,7 +2,10 @@ searchAndHighlight = function (searchTerm) {
 
   clearHighlight();
 
-  if (searchTerm == "" || searchTerm == undefined) { return; }
+  if (searchTerm == "" || searchTerm == undefined) { 
+    resetResults();
+    return; 
+  }
   // Go trough every text possible and find the searchterm
 
   if (USE_REGEX) {
@@ -164,13 +167,20 @@ scrollToMatch = function(idx) {
     selected[i].classList.remove('better-search-selected');
   }
 
+  // all highlighted matches
   let highlighted = document.getElementsByClassName("better-search-highlight");
 
+  // highlight selected in orange
   if(highlighted.length > 0) {
     let scrollToIdx = idx % highlighted.length;
     highlighted[scrollToIdx].classList.add("better-search-selected");
     highlighted[scrollToIdx].scrollIntoView({behavior: "smooth", block: "center"});
+    // change UI
+    updateResults(scrollToIdx, highlighted.length);
+  } else {
+    resetResults();
   }
+
 }
 
 cleanRegex = function(searchTerm) {
