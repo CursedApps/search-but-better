@@ -5,11 +5,13 @@ createPopup = function () {
     let popup = document.getElementById("better-search");
 
     if (!popup) {
-
         // parent
         popup = document.createElement("div");
         popup.className = "better-search";
         popup.id = "better-search";
+
+        let comment = document.createComment("Icons by codicon: https://microsoft.github.io/vscode-codicons/dist/codicon.html");
+        popup.appendChild(comment);
 
         // input field
         let input = document.createElement("input");
