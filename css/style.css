@@ -1,119 +1,127 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 .better-search-highlight {
-    background-color: var(--bs-color-highlight) !important;
+    background-color: var(--bs-color-highlight)                     !important;
 }
 
 .better-search-selected {
-    background-color: var(--bs-color-selected) !important;
+    background-color: var(--bs-color-selected)                      !important;
 }
 
 .better-search {
-    vertical-align: middle !important;
-    font-family: 'Roboto', sans-serif !important;
-    font-size: 14px !important;
-    line-height: 21px !important;
-    position: fixed !important;
-    top: 10px !important;
-    right: 5% !important;
-    z-index: 999999999999999999999999999999999999999999999999999 !important;
-    display: inline-block !important;
-    box-shadow: 0 0 10px 2px var(--bs-color-shadow) !important;
-    padding: 10px !important;
-    border-radius: 4px !important;
-    background: var(--bs-color-bg-options) !important;
+    vertical-align: middle                                          !important;
+    font-family: 'Roboto', sans-serif                               !important;
+    font-size: 14px                                                 !important;
+    line-height: 21px                                               !important;
+    position: fixed                                                 !important;
+    top: 10px                                                       !important;
+    right: 5%                                                       !important;
+    z-index: 999999999999999999999999999999999999999999999999999    !important;
+    display: inline-block                                           !important;
+    box-shadow: 0 0 10px 2px var(--bs-color-shadow)                 !important;
+    padding: 10px                                                   !important;
+    border-radius: 4px                                              !important;
+    background: var(--bs-color-bg-options)                          !important;
+    box-sizing: content-box                                         !important;
 }
 
-.better-search input.textinput {
-    vertical-align: middle !important;
-    color: var(--bs-color-text) !important;
-    font-family: 'Roboto', sans-serif !important;
-    border: none !important;
-    background: var(--bs-color-grey) !important;
-    font-size: 14px !important;
-    padding: 5px !important;
-    padding-right: 10px !important;
-    line-height: 21px !important;
-    border-radius: 4px 0px 0px 4px !important;
+.better-search input.bs-textinput {
+    vertical-align: middle                                          !important;
+    color: var(--bs-color-text)                                     !important;
+    font-family: 'Roboto', sans-serif                               !important;
+    border: none                                                    !important;
+    background: var(--bs-color-grey)                                !important;
+    font-size: 14px                                                 !important;
+    padding: 5px                                                    !important;
+    padding-right: 10px                                             !important;
+    line-height: 21px                                               !important;
+    border-radius: 4px 0px 0px 4px                                  !important;
+    box-shadow: none                                                !important;
+    box-sizing: content-box                                         !important;
 }
 
 .better-search input:focus {
-    vertical-align: middle !important;
-    outline: none !important;
-    font-size: 14px !important;
-    line-height: 21px !important;
-    font-family: 'Roboto', sans-serif !important;
+    vertical-align: middle                                          !important;
+    outline: none                                                   !important;
+    font-size: 14px                                                 !important;
+    line-height: 21px                                               !important;
+    font-family: 'Roboto', sans-serif                               !important;
+    box-shadow: none                                                !important;
+    box-sizing: content-box                                         !important;
 }
 
 .better-search input {
-    color: grey !important;
-    vertical-align: middle !important;
-    font-family: 'Roboto', sans-serif !important;
-    background: transparent !important;
-    border: none !important;
-    line-height: 21px !important;
-    padding-left: 1px !important;
-    padding-right: 1px !important;
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-    font-size: 14px !important;
-    margin: 0px !important;
+    color: grey                                                   !important;
+    vertical-align: middle                                          !important;
+    font-family: 'Roboto', sans-serif                               !important;
+    background: transparent                                         !important;
+    border: none                                                    !important;
+    line-height: 21px                                               !important;
+    padding-left: 1px                                               !important;
+    padding-right: 1px                                              !important;
+    padding-top: 0px                                                !important;
+    padding-bottom: 0px                                             !important;
+    font-size: 14px                                                 !important;
+    margin: 0px                                                     !important;
+    box-sizing: content-box                                         !important;
 }
 
-.better-search .iconContainer {
-    background: var(--bs-color-grey) !important;
-    line-height: 21px !important;
-    padding-top: 6px !important;
-    padding-bottom: 9px !important;
+.better-search .bs-iconContainer {
+    background: var(--bs-color-grey)                                !important;
+    line-height: 21px                                               !important;
+    padding-top: 6px                                                !important;
+    padding-bottom: 9px                                             !important;
 }
 
-.better-search input.inline {
-    vertical-align: middle !important;
-    font-family: 'Roboto', sans-serif !important;
-    margin: -4px !important;
-    padding: 5px !important;
-    padding-right: 10px !important;
-    border-radius: 0px 4px 4px 0px !important;
-    font-size: 14px !important;
-    line-height: 21px !important;
+.better-search input.bs-inline {
+    vertical-align: middle                                          !important;
+    font-family: 'Roboto', sans-serif                               !important;
+    margin: -4px                                                    !important;
+    padding: 5px                                                    !important;
+    padding-right: 10px                                             !important;
+    border-radius: 0px 4px 4px 0px                                  !important;
+    font-size: 14px                                                 !important;
+    line-height: 21px                                               !important;
 }
 
-[data-theme="dark"] input.inline {
+[data-theme="dark"] input.bs-inline {
     filter: invert(41%) sepia(22%) saturate(304%) hue-rotate(201deg) brightness(85%) contrast(84%) !important;
 }
 
-[data-theme="dark"] input.outline {
-    filter: invert(25%) sepia(8%) saturate(741%) hue-rotate(202deg) brightness(93%) contrast(93%) !important;
+[data-theme="dark"] input.bs-outline {
+    filter: invert(25%) sepia(8%) saturate(741%) hue-rotate(202deg) brightness(93%) contrast(93%)   !important;
 }
 
 .better-search input.activated {
     filter: invert(50%) sepia(40%) saturate(3326%) hue-rotate(184deg) brightness(97%) contrast(97%) !important;
 }
 
-.better-search input.inline:hover {
+.better-search input.bs-inline:hover {
     filter: invert(50%) sepia(40%) saturate(3326%) hue-rotate(184deg) brightness(97%) contrast(97%) !important;
-    vertical-align: middle !important;
-    font-size: 14px !important;
-    font-family: 'Roboto', sans-serif !important;
-    line-height: 21px !important;
+    vertical-align: middle                                          !important;
+    font-size: 14px                                                 !important;
+    font-family: 'Roboto', sans-serif                               !important;
+    line-height: 21px                                               !important;
 }
 
-.better-search input.outline {
-    padding-right: 5px !important;
+.better-search input.bs-outline {
+    padding-right: 5px                                              !important;
 }
 
-.better-search input.outline:hover {
+.better-search input.bs-outline:hover {
     filter: invert(50%) sepia(40%) saturate(3326%) hue-rotate(184deg) brightness(97%) contrast(97%) !important;
 }
 
 .better-search label {
-    padding-right: 10px !important;
-    padding-left: 10px !important;
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-    margin-right: 10px !important;
-    font-size: 14px !important;
-    font-family: 'Roboto', sans-serif !important;
-    color: grey !important;
-    border-right: 1px solid grey !important;
-    line-height: 21px !important;
+    padding-right: 10px                                             !important;
+    padding-left: 10px                                              !important;
+    padding-top: 0px                                                !important;
+    padding-bottom: 0px                                             !important;
+    margin-right: 10px                                              !important;
+    font-size: 14px                                                 !important;
+    font-weight: 400                                                !important;
+    font-family: 'Roboto', sans-serif                               !important;
+    color: grey                                                   !important;
+    border-right: 1px solid grey                                  !important;
+    line-height: 21px                                               !important;
+    display: inline                                                 !important;
 }
