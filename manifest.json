@@ -1,44 +1,47 @@
 {
-  "name": "search BUT BETTER",
-  "version": "1.0",
-  "description": "search BUT BETTER",
-  "permissions": [
-    "activeTab",
-    "declarativeContent"
-  ],
-  "web_accessible_resources": [
-    "*.png",
-    "*.svg"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "js/main.js",
-        "js/searchLogic.js",
-        "js/UIManager.js"
-      ],
-      "css": [
-        "css/style.css"
-      ]
-    }
-  ],
-  "options_page": "html/options.html",
-  "page_action": {
-    "default_icon": {
+    "name": "search BUT BETTER",
+    "version": "1.0",
+    "description": "search BUT BETTER",
+    "permissions": [
+        "activeTab",
+        "declarativeContent",
+        "storage"
+    ],
+    "web_accessible_resources": [
+        "*.png",
+        "*.svg"
+    ],
+    "content_scripts": [{
+        "matches": [
+            "<all_urls>"
+        ],
+        "js": [
+            "js/main.js",
+            "js/searchLogic.js",
+            "js/UIManager.js"
+        ],
+        "css": [
+            "css/style.css",
+            "css/colors.css"
+        ]
+    }],
+    "options_ui": {
+        "page": "html/options.html",
+        "open_in_tab": false
+    },
+    "page_action": {
+      "default_icon": {
+        "16": "assets/images/sbb_16.png",
+        "32": "assets/images/sbb_32.png",
+        "48": "assets/images/sbb_48.png",
+        "128": "assets/images/sbb_128.png"
+      }
+    },
+    "icons": {
       "16": "assets/images/sbb_16.png",
       "32": "assets/images/sbb_32.png",
       "48": "assets/images/sbb_48.png",
       "128": "assets/images/sbb_128.png"
-    }
-  },
-  "icons": {
-    "16": "assets/images/sbb_16.png",
-    "32": "assets/images/sbb_32.png",
-    "48": "assets/images/sbb_48.png",
-    "128": "assets/images/sbb_128.png"
-  },
-  "manifest_version": 2
+    },
+    "manifest_version": 2
 }
