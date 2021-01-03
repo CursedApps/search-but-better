@@ -6,46 +6,41 @@ let currSelection = null;
 let currMatchIdx = 0;
 
 window.addEventListener("keydown", (event) => {
-  if (event.ctrlKey && event.shiftKey && event.key == 'F') {
-    let selection = window.getSelection().toString();
-    let content = document.documentElement.innerHTML;
+    if (event.ctrlKey && event.shiftKey && event.key == 'F') {
+        let selection = window.getSelection().toString();
+        let content = document.documentElement.innerHTML;
 
-    let popup = createPopup();
-    if (selection) {
-      addSelection(selection);
+        let popup = createPopup();
+        if (selection) {
+            addSelection(selection);
+        }
+
+        chrome.storage.local.get({
+            useDarkMode: false // default value
+        }, function(options) {
+            if (options.useDarkMode) {
+                popup.setAttribute('data-theme', 'dark')
+            }
+        });
+
+    } else if (event.key == 'Escape') {
+        closeSearchPopup();
+    } else if (event.altKey && event.key == 'c') {
+        toggleMatchCaseFlag();
+    } else if (event.altKey && event.key == 'w') {
+        toggleMatchWordFlag();
+    } else if (event.altKey && event.key == 'r') {
+        toggleUseRegexFlag();
+    } else if (event.altKey && event.key == 'l') {
+        toggleFindInSelectionFlag();
+    } else if (event.shiftKey && event.key == 'Enter') {
+        scrollToPrevMatch();
+    } else if (event.key == 'Enter') {
+        scrollToNextMatch();
     }
-  }
-
-  else if (event.key == 'Escape') {
-    closeSearchPopup();
-  }
-
-  else if (event.altKey && event.key == 'c') {
-    toggleMatchCaseFlag();
-  }
-
-  else if (event.altKey && event.key == 'w') {
-    toggleMatchWordFlag();
-  }
-
-  else if (event.altKey && event.key == 'r') {
-    toggleUseRegexFlag();
-  }
-
-  else if (event.altKey && event.key == 'l') {
-    toggleFindInSelectionFlag();
-  }
-
-  else if(event.shiftKey && event.key == 'Enter') {
-    scrollToPrevMatch();
-  }
-
-  else if(event.key == 'Enter') {
-    scrollToNextMatch();
-  }
 });
 
 document.onselectionchange = () => {
-  let selection = document.getSelection();
-  currSelection = selection;
+    let selection = document.getSelection();
+    currSelection = selection;
 };

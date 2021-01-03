@@ -1,0 +1,20 @@
+/* to get filter associated to accent color : https://codepen.io/sosuke/pen/Pjoqqp */
+
+:root {
+    --bs-color-bg-options: #ffffff;
+    --bs-color-text-options: #000000;
+    --bs-color-text: #808080;
+    --bs-color-grey: #eee;
+    --bs-color-shadow: #ccc;
+    --bs-color-accent: #2196F3;
+    --bs-color-highlight: #ffff00;
+    --bs-color-selected: #ffd1389c;
+}
+
+[data-theme="dark"] {
+    --bs-color-bg-options: #1c1c21;
+    --bs-color-text-options: #eee;
+    --bs-color-text: #eee;
+    --bs-color-grey: #33333D;
+    --bs-color-shadow: #28282F;
+}
