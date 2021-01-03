@@ -30,7 +30,7 @@ searchAndHighlight = function (searchTerm) {
     if (!hasAncestor(elem, searchDir) && elem.className != 'better-search-highlight' && elem.innerHTML != undefined
       && elem.tagName != "SCRIPT" && elem.tagName != "STYLE" && elem.tagName != "LINK") {
       tagOnlyRe = /(.*?)(<(\w+).*?>.*<\/\3>)(.*)/gs;
-      singleTagRe = /(.*?)(<(\w+).*?>)(.*)/gs;
+      singleTagRe = /(.*?)(<(?:!--)?(\w+).*?(?:--)?>)(.*)/gs;
       items = applyFilter([[0, elem.innerHTML]], tagOnlyRe);
       items = applyFilter(items, singleTagRe);
 
@@ -103,7 +103,7 @@ searchAndHighlight = function (searchTerm) {
 
 hasAncestor = function (elem, ancestor) {
   if (elem == null) return false;
-  let parent = elem.parentNode;
+  let parent = elem;
   const root = document.getRootNode();
 
   while (parent != root && parent != null) {
