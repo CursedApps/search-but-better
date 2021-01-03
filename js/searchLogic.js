@@ -2,7 +2,11 @@ searchAndHighlight = function (searchTerm) {
 
   clearHighlight();
 
-  if (searchTerm == "" || searchTerm == undefined) { return; }
+  if (searchTerm == "" || searchTerm == undefined) { 
+    let resultsLabel = document.getElementById("nbResults");
+    resultsLabel.textContent = "No Results";
+    return; 
+  }
   // Go trough every text possible and find the searchterm
 
   if (USE_REGEX) {
