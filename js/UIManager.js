@@ -117,12 +117,12 @@ toggleMatchCaseFlag = function () {
 // outline
 scrollToPrevMatch = function () {
     currMatchIdx--;
-    scrollToMatch(currMatchIdx);
+    scrollToMatch();
 }
 
 scrollToNextMatch = function () {
     currMatchIdx++;
-    scrollToMatch(currMatchIdx);
+    scrollToMatch();
 }
 
 

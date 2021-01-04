@@ -22,6 +22,9 @@
     border-radius: 4px                                              !important;
     background: var(--bs-color-bg-options)                          !important;
     box-sizing: content-box                                         !important;
+    width: auto                                                     !important;
+    height: auto                                                    !important;
+    inline-size: auto                                               !important;
 }
 
 .better-search input.bs-textinput {
@@ -37,6 +40,9 @@
     border-radius: 4px 0px 0px 4px                                  !important;
     box-shadow: none                                                !important;
     box-sizing: content-box                                         !important;
+    height: auto                                                    !important;
+    display: inline-block                                           !important;
+    inline-size: auto                                               !important;
 }
 
 .better-search input:focus {
@@ -47,6 +53,8 @@
     font-family: 'Roboto', sans-serif                               !important;
     box-shadow: none                                                !important;
     box-sizing: content-box                                         !important;
+    display: inline-block                                           !important;
+    inline-size: auto                                               !important;
 }
 
 .better-search input {
@@ -63,6 +71,8 @@
     font-size: 14px                                                 !important;
     margin: 0px                                                     !important;
     box-sizing: content-box                                         !important;
+    display: inline-block                                           !important;
+    inline-size: auto                                               !important;
 }
 
 .better-search .bs-iconContainer {
@@ -70,6 +80,8 @@
     line-height: 21px                                               !important;
     padding-top: 6px                                                !important;
     padding-bottom: 9px                                             !important;
+    display: inline-block                                           !important;
+    inline-size: auto                                               !important;
 }
 
 .better-search input.bs-inline {
@@ -81,6 +93,8 @@
     border-radius: 0px 4px 4px 0px                                  !important;
     font-size: 14px                                                 !important;
     line-height: 21px                                               !important;
+    display: inline-block                                           !important;
+    inline-size: auto                                               !important;
 }
 
 [data-theme="dark"] input.bs-inline {
@@ -101,10 +115,14 @@
     font-size: 14px                                                 !important;
     font-family: 'Roboto', sans-serif                               !important;
     line-height: 21px                                               !important;
+    display: inline-block                                           !important;
+    inline-size: auto                                               !important;
 }
 
 .better-search input.bs-outline {
     padding-right: 5px                                              !important;
+    display: inline-block                                           !important;
+    inline-size: auto                                               !important;
 }
 
 .better-search input.bs-outline:hover {
@@ -123,5 +141,6 @@
     color: grey                                                   !important;
     border-right: 1px solid grey                                  !important;
     line-height: 21px                                               !important;
-    display: inline                                                 !important;
+    display: inline-block                                           !important;
+    inline-size: auto                                               !important;
 }
