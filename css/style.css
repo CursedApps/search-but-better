@@ -22,6 +22,7 @@
     border-radius: 4px                                              !important;
     background: var(--bs-color-bg-options)                          !important;
     box-sizing: content-box                                         !important;
+    width: auto                                                     !important;
 }
 
 .better-search input.bs-textinput {
@@ -37,6 +38,9 @@
     border-radius: 4px 0px 0px 4px                                  !important;
     box-shadow: none                                                !important;
     box-sizing: content-box                                         !important;
+    height: auto                                                    !important;
+    display: inline-block                                           !important;
+    inline-size: auto                                               !important;
 }
 
 .better-search input:focus {
@@ -123,5 +127,5 @@
     color: grey                                                   !important;
     border-right: 1px solid grey                                  !important;
     line-height: 21px                                               !important;
-    display: inline                                                 !important;
+    display: inline-block                                           !important;
 }

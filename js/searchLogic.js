@@ -128,7 +128,6 @@ clearHighlight = function () {
     elem.classList.remove("better-search-highlight", "better-search-selected")
     elem.outerHTML = elem.outerHTML.replaceAll(re, "$1");
   }
-
 }
 
 applyFilter = function (items, filter) {
@@ -159,8 +158,7 @@ applyFilter = function (items, filter) {
   return items;
 }
 
-scrollToMatch = function(idx) {
-
+scrollToMatch = function() {
   // remove previous
   let selected = document.getElementsByClassName('better-search-selected');
   for(let i=0; i < selected.length; i++) {
@@ -172,11 +170,16 @@ scrollToMatch = function(idx) {
 
   // highlight selected in orange
   if(highlighted.length > 0) {
-    let scrollToIdx = idx % highlighted.length;
-    highlighted[scrollToIdx].classList.add("better-search-selected");
-    highlighted[scrollToIdx].scrollIntoView({behavior: "smooth", block: "center"});
+
+    if(currMatchIdx < 0) { currMatchIdx += highlighted.length; }
+    else{ currMatchIdx = currMatchIdx % highlighted.length; }
+
+    highlighted[currMatchIdx].classList.add("better-search-selected");
+    highlighted[currMatchIdx].scrollIntoView({behavior: "smooth", block: "center"});
+
     // change UI
-    updateResults(scrollToIdx, highlighted.length);
+    updateResults(currMatchIdx, highlighted.length);
+
   } else {
     resetResults();
   }
