@@ -1,12 +1,14 @@
-searchAndHighlight = function (searchTerm) {
+let searchDir = document.getElementById("better-search");
+const root = document.getRootNode();
 
+searchAndHighlight = function (searchTerm) {
   clearHighlight();
 
-  if (searchTerm == "" || searchTerm == undefined) { 
+  if (searchTerm == "" || searchTerm == undefined) {
+    // Invalid search term
     resetResults();
     return; 
   }
-  // Go trough every text possible and find the searchterm
 
   if (USE_REGEX) {
     // if last value is \ remove it
@@ -20,91 +22,33 @@ searchAndHighlight = function (searchTerm) {
   let elems = [...document.getElementsByTagName("BODY")];
 
   while (elems.length != 0) {
-    const searchDir = document.getElementById("better-search");
     // Remove current Item and Add children
+    searchDir = document.getElementById("better-search");
     const elem = elems[0];
     elems.shift();
 
-    let matched = false;
     // Process text inside node
-    if (!hasAncestor(elem, searchDir) && elem.className != 'better-search-highlight' && elem.innerHTML != undefined
-      && elem.tagName != "SCRIPT" && elem.tagName != "STYLE" && elem.tagName != "LINK") {
-      tagOnlyRe = /(.*?)(<(\w+).*?>.*<\/\3>)(.*)/gs;
-      singleTagRe = /(.*?)(<(?:!--)?(\w+).*?(?:--)?>)(.*)/gs;
-      items = applyFilter([[0, elem.innerHTML]], tagOnlyRe);
-      items = applyFilter(items, singleTagRe);
-
-      let result = "";
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        if (item[0] != 0) {
-          result += item[1];
-        }
-        else {
-          let matches = null;
-          if (!MATCH_CASE) {
-            matches = [...item[1].toLowerCase().matchAll(searchTerm.toLowerCase())];
-          }
-          else {
-            matches = [...item[1].matchAll(searchTerm)];
-          }
-          if (matches != null && matches.length != 0) {
-            matched = true;
-
-            let k = 0;
-            for (let j = 0; j < matches.length; j++) {
-              match = matches[j];
-              if (MATCH_WORD) {
-                idxs = [k + match.index-1, match.index + searchTerm.length];
-                let continueOnMatch = false;
-
-                for (let idxI = 0; idxI < idxs.length; idxI++) {
-                  idx = idxs[idxI];
-                  if (!(idx < 0 || idx >= item[1].length || (item[1][idx].match(/[\s.,-]/) != null &&  item[1][idx].match(/[\s.,-]/).length != 0) )) {
-                    continueOnMatch = true; 
-                    break;
-                  }
-                }
-
-                if (continueOnMatch) {
-                  continue;
-                }
-
-              }
-              result += item[1].substring(k, match.index);
-              k = match.index + searchTerm.length;
-              const actualTerm = item[1].substring(match.index, k);
-              result += "<span class='better-search-highlight'>" + actualTerm + "</span>";
-            }
-
-            result += item[1].substring(k, item[1].length);
-          }
-          else {
-            result += item[1];
-          }
-        }
-      }
-
-      if (matched) {
+    if (isValidNode(elem)) {
+      items = removeSubNodes(elem.innerHTML);
+      const result = searchAndHighlightItems(items, searchTerm);
+      if ( result != null) {
         elem.innerHTML = result;
       }
     }
     
+    // Add children to elems
     for (let i = 0; i < elem.children.length; i++) {
-      const child = elem.children[i];
-      elems.push(child);
+      elems.push(elem.children[i]);
     }
   }
 
   currMatchIdx = 0;
-  scrollToMatch(currMatchIdx);
-
+  scrollToMatch();
 }
 
 hasAncestor = function (elem, ancestor) {
   if (elem == null) return false;
   let parent = elem;
-  const root = document.getRootNode();
 
   while (parent != root && parent != null) {
     if (parent == ancestor) {
@@ -160,13 +104,13 @@ applyFilter = function (items, filter) {
 
 scrollToMatch = function() {
   // remove previous
-  let selected = document.getElementsByClassName('better-search-selected');
+  const selected = document.getElementsByClassName('better-search-selected');
   for(let i=0; i < selected.length; i++) {
     selected[i].classList.remove('better-search-selected');
   }
 
   // all highlighted matches
-  let highlighted = document.getElementsByClassName("better-search-highlight");
+  const highlighted = document.getElementsByClassName("better-search-highlight");
 
   // highlight selected in orange
   if(highlighted.length > 0) {
@@ -188,4 +132,88 @@ scrollToMatch = function() {
 
 cleanRegex = function(searchTerm) {
   return searchTerm.replaceAll(/([.])/g, '\\$1');
+}
+
+isValidNode = function(node) {
+  return !hasAncestor(node, searchDir) && node.className != 'better-search-highlight' && node.innerHTML != undefined
+      && node.tagName != "SCRIPT" && node.tagName != "STYLE" && node.tagName != "LINK";
+}
+
+removeSubNodes = function(html) {
+  const tagOnlyRe = /(.*?)(<(\w+).*?>.*<\/\3>)(.*)/gs;
+  const singleTagRe = /(.*?)(<(?:!--)?(\w+).*?(?:--)?>)(.*)/gs;
+  items = applyFilter([[0, html]], tagOnlyRe);
+  items = applyFilter(items, singleTagRe);
+
+  return items;
+}
+
+searchAndHighlightItems = function(items, searchTerm) {
+  let matched = false;
+  let result = "";
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    if (item[0] != 0) {
+      // if within sub node, just add it
+      result += item[1];
+    }
+    else {
+      result += replaceSearchTermByHighlight(item, searchTerm);
+      if (result != "") {
+        matched = true;
+      }
+    }
+  }
+
+  return (matched? result: null); 
+}
+
+getMatches = function(item, searchTerm) {
+  if (!MATCH_CASE) {
+    return [...item[1].toLowerCase().matchAll(searchTerm.toLowerCase())];
+  }
+  else {
+    return [...item[1].matchAll(searchTerm)];
+  }
+}
+
+replaceSearchTermByHighlight = function (item, searchTerm) {
+  const matches = getMatches(item, searchTerm);
+  result = "";
+
+  if (matches != null && matches.length != 0) {
+
+    let k = 0;
+    for (let j = 0; j < matches.length; j++) {
+      match = matches[j];
+      if (MATCH_WORD) {
+        idxs = [k + match.index-1, match.index + searchTerm.length];
+        let continueOnMatch = false;
+
+        for (let idxI = 0; idxI < idxs.length; idxI++) {
+          idx = idxs[idxI];
+          if (!(idx < 0 || idx >= item[1].length || (item[1][idx].match(/[\s.,-]/) != null &&  item[1][idx].match(/[\s.,-]/).length != 0) )) {
+            continueOnMatch = true; 
+            break;
+          }
+        }
+
+        if (continueOnMatch) {
+          continue;
+        }
+
+      }
+      result += item[1].substring(k, match.index);
+      k = match.index + searchTerm.length;
+      const actualTerm = item[1].substring(match.index, k);
+      result += "<span class='better-search-highlight'>" + actualTerm + "</span>";
+    }
+
+    result += item[1].substring(k, item[1].length);
+  }
+  else {
+    result += item[1];
+  }
+
+  return result;
 }
