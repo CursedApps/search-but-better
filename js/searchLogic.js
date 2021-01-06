@@ -1,3 +1,6 @@
+let searchDir = document.getElementById("better-search");
+const root = document.getRootNode();
+
 searchAndHighlight = function (searchTerm) {
   clearHighlight();
 
@@ -20,6 +23,7 @@ searchAndHighlight = function (searchTerm) {
 
   while (elems.length != 0) {
     // Remove current Item and Add children
+    searchDir = document.getElementById("better-search");
     const elem = elems[0];
     elems.shift();
 
@@ -45,7 +49,6 @@ searchAndHighlight = function (searchTerm) {
 hasAncestor = function (elem, ancestor) {
   if (elem == null) return false;
   let parent = elem;
-  const root = document.getRootNode();
 
   while (parent != root && parent != null) {
     if (parent == ancestor) {
@@ -101,13 +104,13 @@ applyFilter = function (items, filter) {
 
 scrollToMatch = function() {
   // remove previous
-  let selected = document.getElementsByClassName('better-search-selected');
+  const selected = document.getElementsByClassName('better-search-selected');
   for(let i=0; i < selected.length; i++) {
     selected[i].classList.remove('better-search-selected');
   }
 
   // all highlighted matches
-  let highlighted = document.getElementsByClassName("better-search-highlight");
+  const highlighted = document.getElementsByClassName("better-search-highlight");
 
   // highlight selected in orange
   if(highlighted.length > 0) {
@@ -132,7 +135,6 @@ cleanRegex = function(searchTerm) {
 }
 
 isValidNode = function(node) {
-  const searchDir = document.getElementById("better-search");
   return !hasAncestor(node, searchDir) && node.className != 'better-search-highlight' && node.innerHTML != undefined
       && node.tagName != "SCRIPT" && node.tagName != "STYLE" && node.tagName != "LINK";
 }
