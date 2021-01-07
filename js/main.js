@@ -41,6 +41,8 @@ window.addEventListener("keydown", (event) => {
 });
 
 document.onselectionchange = () => {
-    let selection = document.getSelection();
-    currSelection = selection;
+    const selection = document.getSelection();
+    if (selection != null && selection.type == "Range") {
+        currSelection = selection;
+    }
 };
