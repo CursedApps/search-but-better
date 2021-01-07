@@ -243,7 +243,6 @@ getContingentNodes = function (lhs, rhs) {
     // Add next siblings in last parents
     while (currentNode != null) {
       nodes.push(currentNode);
-      console.log("nodes", nodes);
     }
   }
 
