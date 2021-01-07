@@ -12,7 +12,7 @@ such as search in selection, match case, match whole word and search with a rege
 
 ## How to use
 Install the chrome extension via [this repo](https://dev.to/ben/how-to-install-chrome-extensions-manually-from-github-1612) or the google store, and simply search with
-ctrl+atl+f
+ctrl+shift+f
 
 ## Feedback
 Feedback is always appreciated, you are welcome to add an issue if you find any bug or if
