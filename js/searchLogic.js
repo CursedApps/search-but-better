@@ -19,7 +19,7 @@ searchAndHighlight = function (searchTerm) {
     searchTerm = cleanRegex(searchTerm);
   }
 
-  let elems = [...document.getElementsByTagName("BODY")];
+  let elems = getSearchNodes();
 
   while (elems.length != 0) {
     // Remove current Item and Add children
@@ -37,8 +37,11 @@ searchAndHighlight = function (searchTerm) {
     }
     
     // Add children to elems
-    for (let i = 0; i < elem.children.length; i++) {
-      elems.push(elem.children[i]);
+    if (elem.children != null)
+    {
+      for (let i = 0; i < elem.children.length; i++) {
+        elems.push(elem.children[i]);
+      }
     }
   }
 
@@ -216,4 +219,58 @@ replaceSearchTermByHighlight = function (item, searchTerm) {
   }
 
   return result;
+}
+
+getDefaultSearchNodes = function () {
+  return [...document.getElementsByTagName("BODY")];
+}
+
+getContingentNodes = function (lhs, rhs) {
+  if (lhs == null || rhs == null) return getDefaultSearchNodes();
+  else if (lhs == rhs) return [lhs.parentNode];
+  let parent = lhs.parentNode;
+  let currentNode = lhs;
+  let nodes = [parent];
+
+  while (parent != root && parent != null) {
+    currentNode = parent.nextSibling;
+    parent = parent.parentNode;
+
+    if (hasAncestor(rhs, parent)) {
+      break;
+    }
+
+    // Add next siblings in last parents
+    while (currentNode != null) {
+      nodes.push(currentNode);
+    }
+  }
+
+  while (currentNode != null) {
+    if (currentNode == rhs) {
+      nodes.push(currentNode);
+      break;
+    }
+    else if (hasAncestor(rhs, currentNode)) {
+      // Enter the node
+      currentNode = currentNode.firstChild;
+    } else {
+      nodes.push(currentNode);
+      currentNode = currentNode.nextSibling;
+    }
+  }
+
+  return nodes;
+}
+
+getSearchNodes = function () {
+  if (FIND_IN_SELECTION) {
+    if (currSelection == null) {
+      return getDefaultSearchNodes();
+    } else {
+      return getContingentNodes(currSelection.anchorNode, currSelection.focusNode);
+    }
+  } else {
+    return getDefaultSearchNodes();
+  }
 }
