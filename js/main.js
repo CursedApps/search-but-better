@@ -4,6 +4,9 @@ let MATCH_WORD = false
 let MATCH_CASE = false
 let currSelection = null;
 let currMatchIdx = 0;
+let searchTimeout = null;
+
+const InputWaitTime = 250; // ms
 
 window.addEventListener("keydown", (event) => {
     if (event.ctrlKey && event.shiftKey && event.key == 'F') {
