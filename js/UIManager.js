@@ -1,5 +1,17 @@
 search = function () { }
 
+onInput = function () {
+    if (searchTimeout != null) {
+        clearTimeout(searchTimeout);
+        console.log("clearTimeout");
+    }
+
+    searchTimeout = setTimeout(function () {
+        search();
+        searchTimeout = null;
+    }, InputWaitTime);
+}
+
 createPopup = function () {
 
     let popup = document.getElementById("better-search");
@@ -19,7 +31,7 @@ createPopup = function () {
         input.id = "bs-input-field";
         input.className = "bs-textinput";
         search = function () { searchAndHighlight(input.value) };
-        input.oninput = search;
+        input.oninput = onInput;
         popup.appendChild(input);
 
         let div = document.createElement("span");
