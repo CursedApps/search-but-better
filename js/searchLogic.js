@@ -222,7 +222,7 @@ replaceSearchTermByHighlight = function (item, searchTerm) {
 }
 
 getDefaultSearchNodes = function () {
-  return [...document.getElementsByTagName("BODY")];
+  return [...document.getElementsByTagName("BODY")[0].children];
 }
 
 getContingentNodes = function (lhs, rhs) {
