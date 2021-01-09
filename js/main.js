@@ -14,6 +14,7 @@ window.addEventListener("keydown", (event) => {
         let content = document.documentElement.innerHTML;
 
         let popup = createPopup();
+        document.getElementById("bs-input-field").focus();
         if (selection) {
             addSelection(selection);
         }
