@@ -3,7 +3,6 @@ search = function () { }
 onInput = function () {
     if (searchTimeout != null) {
         clearTimeout(searchTimeout);
-        console.log("clearTimeout");
     }
 
     searchTimeout = setTimeout(function () {
