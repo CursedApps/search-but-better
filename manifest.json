@@ -3,8 +3,6 @@
     "version": "1.0",
     "description": "search BUT BETTER",
     "permissions": [
-        "activeTab",
-        "declarativeContent",
         "storage"
     ],
     "web_accessible_resources": [
