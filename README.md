@@ -14,6 +14,8 @@ such as search in selection, match case, match whole word and search with a rege
 Install the chrome extension via [this repo](https://dev.to/ben/how-to-install-chrome-extensions-manually-from-github-1612) or the google store, and simply search with
 ctrl+shift+f
 
+You can also activate dark mode using the options page
+
 ## Feedback
 Feedback is always appreciated, you are welcome to add an issue if you find any bug or if
 you have a suggestion for an additionnal feature. Anyone is also welcome to contribute to this
