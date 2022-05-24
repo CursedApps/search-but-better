@@ -10,7 +10,7 @@ jobs:
       contents: write
     steps:
       - name: Install dependencies
-        run: apt install python3 zip 
+        run: sudo apt install python3 zip 
       - name: Checkout Repository
         uses: actions/checkout@v2
       - name: Generate documentation
