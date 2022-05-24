@@ -14,7 +14,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       - name: Generate documentation
-        run: python ${{ github.repository }}/.github/workflows/genDocRelease.py ${{ github.repository }}/docs doc_export
+        run: python ${{ github.repository }}/.github/doc-release-gen/genDocRelease.py ${{ github.repository }}/docs doc_export
       - name: Zipping export folder
         run: zip -r doc_export.zip doc_export
       - name: Creating release
