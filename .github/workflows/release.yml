@@ -1,0 +1,26 @@
+name: Search But Better Release
+on : 
+  push:
+    tags:
+      - 'v*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Install dependencies
+        run: sudo apt install python3 zip 
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with: 
+          submodules : recursive
+      - name: Generate documentation
+        run: python .github/doc-release-gen/genDocRelease.py docs doc_export
+      - name: Zipping export folder
+        run: zip -r doc_export.zip doc_export
+      - name: Creating release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: doc_export.zip

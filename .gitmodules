@@ -1,0 +1,3 @@
+[submodule ".github/doc-release-gen"]
+	path = .github/doc-release-gen
+	url = https://github.com/CursedApps/doc-release-gen.git
