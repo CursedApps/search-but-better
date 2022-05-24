@@ -16,7 +16,7 @@ jobs:
         with: 
           submodules : recursive
       - name: Generate documentation
-        run: python ${{ github.repository }}/.github/doc-release-gen/genDocRelease.py ${{ github.repository }}/docs doc_export
+        run: python .github/doc-release-gen/genDocRelease.py docs doc_export
       - name: Zipping export folder
         run: zip -r doc_export.zip doc_export
       - name: Creating release
